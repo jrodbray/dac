@@ -52,20 +52,45 @@ if($course_offerings){
             <td><?php echo $course_offering['Entity']['code'].' - '.$course_offering['Person']['last_name']; ?></td>
             <td><?php echo $course_offering['CourseOffering']['location']; ?></td>
             <td><?php echo $course_offering['CourseOffering']['company']; ?></td>
-            <?php echo "<td class='actions'>";
+            <?php echo "<td class='action_imgs'>";
                 if($course_offering['CourseOffering']['cancelled']){
                     echo "CANCELLED";
                 }else {
-                    echo  $this->Form->postLink('Edit', array(
-                        'action' => 'edit_enrollments', $course_offering['CourseOffering']['id']));
-                    echo $this->Form->postLink('Class List', array(
-                        'action' => 'class_list', $course_offering['CourseOffering']['id']));
-                    echo "<br><br>";
-                    echo $this->Form->postLink('Enroll New Students', array(
-                        'action' => 'enroll', $course_offering['CourseOffering']['id']));
-                    echo "<br><br>";
-                    echo $this->Form->postLink('Enroll Existing Students', array(
-                        'action' => 'enroll_existing', $course_offering['CourseOffering']['id']));
+                    echo  $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
+                                                                    DIRECTORY_SEPARATOR.'24'.
+                                                                    DIRECTORY_SEPARATOR.'pencil.png',
+                        array("alt" => __('Edit Enrollments'), "title" => __('Edit Enrollments'))),
+                        array('action' => 'edit_enrollments', $course_offering['CourseOffering']['id']),
+                        array('escape' => false));
+                    echo '&nbsp;&nbsp;';
+
+                    echo $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
+                                                                    DIRECTORY_SEPARATOR.'24'.
+                                                                    DIRECTORY_SEPARATOR.'document.png',
+                        array("alt" => __('Class List'), "title" => __('Class List'))),
+                        array('action' => 'class_list', $course_offering['CourseOffering']['id']),
+                        array('escape' => false));
+                    echo "&nbsp;&nbsp;";
+                    echo $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
+                                                                    DIRECTORY_SEPARATOR.'24'.
+                                                                    DIRECTORY_SEPARATOR.'trophy.png',
+                        array("alt" => __('Print Certificates'), "title" => __('Print Certificates'))),
+                        array('action' => 'print_certificates', $course_offering['CourseOffering']['id']),
+                        array('escape' => false, 'target' => '_blank') );
+                    echo "&nbsp;&nbsp;";
+                    echo $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
+                                                                    DIRECTORY_SEPARATOR.'24'.
+                                                                    DIRECTORY_SEPARATOR.'user.png',
+                        array("alt" => __('Enroll New Students'), "title" => __('Enroll New Students'))),
+                        array('action' => 'enroll', $course_offering['CourseOffering']['id']),
+                        array('escape' => false));
+                    echo "&nbsp;&nbsp;";
+                    echo $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
+                                                                    DIRECTORY_SEPARATOR.'24'.
+                                                                    DIRECTORY_SEPARATOR.'client.png',
+                        array("alt" => __('Enroll Existing Students'), "title" => __('Enroll Existing Students'))),
+                        array('action' => 'enroll_existing', $course_offering['CourseOffering']['id']),
+                        array('escape' => false));
                 }
             echo "</td>";
             ?>

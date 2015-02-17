@@ -62,19 +62,39 @@ if($course_offerings){
         <td><?php echo $course_offering['Entity']['code'].' - '.$course_offering['Person']['last_name']; ?></td>
         <td><?php echo $course_offering['CourseOffering']['location']; ?></td>
         <td><?php echo $course_offering['CourseOffering']['company']; ?></td>
-        <?php echo "<td class='actions'>";
+        <?php echo "<td class='action_imgs'>";
             if($course_offering['CourseOffering']['cancelled']){
                 echo "CANCELLED";
             }else {
-                echo $this->Html->link( 'Edit', array('action' => 'edit', $course_offering['CourseOffering']['id']) );
+                echo $this->Html->link( $this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
+                                                                DIRECTORY_SEPARATOR.'24'.
+                                                                DIRECTORY_SEPARATOR.'pencil.png',
+                    array("alt" => __('Edit'), "title" => __('Edit'))),
+                    array('action' => 'edit', $course_offering['CourseOffering']['id']),
+                    array('escape' => false));
+                echo '&nbsp;&nbsp;';
+                echo $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
+                    DIRECTORY_SEPARATOR.'24'.
+                    DIRECTORY_SEPARATOR.'close15.png',
+                    array("alt" => __('Cancel'), "title" => __('Cancel'))),
+                    array('action' => 'cancel', $course_offering['CourseOffering']['id']), array(
+                    'confirm' => 'Are you sure you want to cancel that Course Offering?',
+                        'escape' => false));
+                echo '&nbsp;&nbsp;';
+                echo $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
+                                                                    DIRECTORY_SEPARATOR.'24'.
+                                                                    DIRECTORY_SEPARATOR.'document.png',
+                    array("alt" => __('Class List'), "title" => __('CLass List'))),
+                    array('controller' => 'Enrollments', 'action' => 'class_list', $course_offering['CourseOffering']['id']),
+                    array('escape' => false));
+                echo "&nbsp;&nbsp;";
+                echo $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
+                                                                    DIRECTORY_SEPARATOR.'24'.
+                                                                    DIRECTORY_SEPARATOR.'trophy.png',
+                    array("alt" => __('Print Certificates'), "title" => __('Print Certificates'))),
+                    array('controller' => 'Enrollments', 'action' => 'print_certificates', $course_offering['CourseOffering']['id']),
+                    array('escape' => false, 'target' => '_blank'));
 
-                echo $this->Form->postLink('Cancel', array(
-                    'action' => 'cancel',
-                    $course_offering['CourseOffering']['id']), array(
-                    'confirm' => 'Are you sure you want to cancel that Course Offering?'));
-
-                 echo $this->Form->postLink( 'Class List', array(
-                    'controller' => 'Enrollments', 'action' => 'class_list', $course_offering['CourseOffering']['id']) );
             }
         echo "</td>";
         ?>

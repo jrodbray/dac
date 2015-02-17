@@ -9,11 +9,11 @@
 <h2>DAC Student Database</h2>
 
 <?php
-echo $this->Html->link( 'People Menu',     '/pages/people_menu');
+echo $this->Html->link( 'Admin Menu',     '/pages/admin_menu');
 ?>
 <br><br>
 <?php
-echo $this->Html->link( 'Admin Menu',     '/pages/admin_menu');
+echo $this->Html->link( 'People Menu',     '/pages/people_menu');
 ?>
 <br><br>
 <?php

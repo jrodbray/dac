@@ -12,6 +12,10 @@
     </A>
 </div>
 <?php
+//echo print_r($query_string);
+//echo '<br><br>';
+//echo print_r($enrollments);
+//echo '<br><br>';
 if($enrollments) {
 
 //creating our table
@@ -31,7 +35,8 @@ if($enrollments) {
                 echo "</table>";
             }
             echo "<b>".$enrollment['Course']['course_code']." - ".$enrollment['Course']['description']."</b>&nbsp;(".
-                 $enrollment['CourseOffering']['date']."), ".$enrollment['I']['first_name']."&nbsp;".$enrollment['I']['last_name'];
+                 $enrollment['CourseOffering']['date']."), ".$enrollment['I']['first_name']."&nbsp;".$enrollment['I']['last_name'].
+                 "&nbsp;-&nbsp;<b>".$enrollment['InstructingOrg']['code']."</b>";
             echo "<br><br>";
             echo "<table>";
 

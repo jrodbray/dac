@@ -1,4 +1,4 @@
-<h2>Add New Course Offering</h2>
+<h2>Edit Course Offering</h2>
 
 <!-- link to list users page -->
 <div class='upper-right-opt'>

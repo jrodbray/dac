@@ -12,7 +12,7 @@
 </div>
 <br><br>
 <?php
-echo $this->Html->link( 'Enroll Students',     array(
+echo $this->Html->link( 'Enroll Students, Print Class Lists, Certificates',     array(
     'controller' => 'enrollments',
     'action' => 'index',
     'full_base' => true
@@ -20,9 +20,10 @@ echo $this->Html->link( 'Enroll Students',     array(
 ?>
 <br><br>
 <?php
-echo $this->Html->link( '(TRIAL) Report all Course Offerings',     array(
+echo $this->Html->link( 'Report Course Enrollments',     array(
     'controller' => 'enrollments',
-    'action' => 'enrollments_report',
+    //'action' => 'enrollments_report',
+    'action' => 'filter_report',
     'full_base' => true
 ));
 ?>

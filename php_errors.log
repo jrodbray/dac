@@ -214,3 +214,5 @@ Stack trace:
 [09-Feb-2015 19:58:48 America/New_York] PHP Parse error:  syntax error, unexpected end of file, expecting function (T_FUNCTION) in C:\inetpub\wwwroot\dac\app\Controller\EntitiesController.php on line 91
 [09-Feb-2015 21:48:50 America/New_York] PHP Parse error:  syntax error, unexpected ')', expecting ']' in C:\inetpub\wwwroot\dac\app\View\Enrollments\enrollments_report.ctp on line 24
 [10-Feb-2015 19:29:32 America/New_York] PHP Fatal error:  Call to a member function find() on null in C:\inetpub\wwwroot\dac\app\Controller\EnrollmentsController.php on line 66
+[13-Feb-2015 09:17:50 America/New_York] PHP Fatal error:  Call to undefined function image() in C:\inetpub\wwwroot\dac\app\View\Enrollments\index.ctp on line 81
+[13-Feb-2015 13:16:21 America/New_York] PHP Parse error:  syntax error, unexpected '}' in C:\inetpub\wwwroot\dac\app\View\Enrollments\print_certificates.ctp on line 47

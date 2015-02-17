@@ -63,17 +63,7 @@ class EnrollmentsController extends AppController {
 
     public function filter(){
         $this->response->disableCache();
-
-        $all_organizations = $this->Entity->find('all', array(
-            'order' => array('Entity.name ASC'),
-            'conditions' => array('dac_training' => 1)
-        ) );
-        $this->set('all_organizations', $all_organizations);
-
-        $all_instructors = $this->Instructor->find('all', array('order' => array('Person.last_name', 'Person.first_name ASC') ) );
-        $this->set('all_instructors', $all_instructors);
-        $all_courses = $this->Course->find('all', array('order' => array('Course.course_code')));
-        $this->set('all_courses', $all_courses);
+        $this->prepare_filter();
 
         if($this->request->is('post')) {
             $active_filter = array();
@@ -101,15 +91,60 @@ class EnrollmentsController extends AppController {
         $this->redirect(array('action' => 'index'));
     }
 
-    public function enrollments_report() {
-        $enrollments = $this->Enrollment->query("SELECT CourseOffering.*, Course.*, I.*, EE.* FROM course_offerings AS CourseOffering ".
-                        "LEFT JOIN courses AS Course ON (CourseOffering.course_id = Course.id) ".
-                        "JOIN expanded_instructors as I ON (CourseOffering.instructor_id = I.id)".
-                        "JOIN expanded_enrollments as EE ON (CourseOffering.id = EE.course_offering_id) ".
-                        "WHERE CourseOffering.cancelled <> 1 OR CourseOffering.cancelled IS NULL ".
-                        "ORDER BY CourseOffering.date DESC, Course.course_code ASC, I.id ASC");
-        $this->set('enrollments', $enrollments);
+    private function prepare_filter() {
+        $all_organizations = $this->Entity->find('all', array(
+            'order' => array('Entity.name ASC'),
+            'conditions' => array('dac_training' => 1)
+        ) );
+        $this->set('all_organizations', $all_organizations);
 
+        $all_instructors = $this->Instructor->find('all', array('order' => array('Person.last_name', 'Person.first_name ASC') ) );
+        $this->set('all_instructors', $all_instructors);
+        $all_courses = $this->Course->find('all', array('order' => array('Course.course_code')));
+        $this->set('all_courses', $all_courses);
+    }
+
+    public function filter_report() {
+        $this->response->disableCache();
+        $this->prepare_filter();
+
+        if($this->request->is('post')) {
+            $active_filter = '';
+            $filter_array = $this->request->data;
+            while (list($key, $val) = each($filter_array)) {
+                if($val) {
+                    if ($key == 'date') {
+                        $active_filter = $active_filter." AND ".$key." >= '".$val."'";
+                    } else {
+                        $active_filter = $active_filter." AND ".$key." = '".$val."'";
+                    }
+                }
+            }
+
+            $this->Session->write('active_report_filter', $active_filter);
+            $this->redirect(array('action' => 'enrollments_report'));
+        }else{
+            // take no action, just present the form to gather the filter data
+        }
+
+    }
+
+
+    public function enrollments_report() {
+        $this->response->disableCache();
+
+        $query_string = "SELECT CourseOffering.*, Course.*, I.*, EE.*, InstructingOrg.* FROM course_offerings AS CourseOffering ".
+            "LEFT JOIN courses AS Course ON (CourseOffering.course_id = Course.id) ".
+            "JOIN expanded_instructors as I ON (CourseOffering.instructor_id = I.id)".
+            "JOIN expanded_enrollments as EE ON (CourseOffering.id = EE.course_offering_id) ".
+            "JOIN entities as InstructingOrg ON (CourseOffering.entity_id = InstructingOrg.id) ".
+            "WHERE (CourseOffering.cancelled <> 1 OR CourseOffering.cancelled IS NULL) ";
+        $active_filter = $this->Session->read('active_report_filter');
+        $query_string = $query_string.$active_filter." ORDER BY CourseOffering.date DESC, Course.course_code ASC, I.id ASC ";
+        $enrollments = $this->CourseOffering->query($query_string);
+
+        $this->set('enrollments', $enrollments);
+        $this->set('query_string', $query_string);
     }
 
     public function class_list(){
@@ -138,6 +173,52 @@ class EnrollmentsController extends AppController {
                 )
         	);
         $this->set('people', $people);
+    }
+
+    public function  print_certificates(){
+        $this->response->disableCache();
+        $this->find_and_set_course_offerings();
+        //grab all Person instances and pass it to the view:
+        $courseOffering = $this->Session->read('course_offering');
+        $people = $this->Person->find('all', array(
+                'order' => array(
+                    'last_name' => 'asc',
+                    'first_name' => 'asc'
+                ),
+                'joins' => array(
+                    array(
+                        'table' => 'enrollments',
+                        'alias' => 'Enrollment',
+                        //'type' => 'left',
+                        'foreignKey' => false,
+                        'conditions'=> array('Person.id = Enrollment.person_id')
+                    )
+                ),
+                'fields' => array('Person.*', 'Enrollment.*'),
+                'conditions' => array(
+                    'Enrollment.course_offering_id' => $courseOffering[0]['CourseOffering']['id']
+                )
+            )
+        );
+
+        $this->response->type("application/pdf");
+        $this->layout = 'defaultpdf'; //this will use the defaultpdf.ctp layout
+        $data_array = array();
+        $data_array_index = 0;
+        foreach ($people as $person):
+            $inner_array = array();
+            $inner_array['Name'] = $person['Enrollment']['name_on_certificate'];
+            $inner_array['Course1'] = $courseOffering[0]['Course']['description'];
+            $inner_array['Course2'] = '';
+            $inner_array['PDUs'] = $courseOffering[0]['Course']['PDUs'];
+
+            $inner_array['Date'] = $this->format_certificate_date($courseOffering);
+
+            $data_array[$data_array_index] = $inner_array;
+            $data_array_index++;
+        endforeach;
+        $this->set('data_array', $data_array);
+        $this->render(strtolower($courseOffering[0]['Entity']['code']).'_certificates');
 
     }
 
@@ -251,6 +332,39 @@ class EnrollmentsController extends AppController {
             )
         ));
         $this->Session->write('course_offering', $courseOffering);
+    }
+
+    /**
+     * @param $courseOffering
+     * @param $inner_array
+     * @return mixed
+     */
+    private function format_certificate_date($courseOffering) {
+        $t1 = strtotime($courseOffering[0]['CourseOffering']['date']);
+        $t2 = strtotime($courseOffering[0]['CourseOffering']['end_date']);
+        $formatted_date_string = '';
+        // simple format for a single day course
+        if($t1 == $t2){
+            $formatted_date_string = date('j F Y', $t1);
+        }else {
+            // get date and time information from timestamps
+            $d1 = getdate($t1);
+            $d2 = getdate($t2);
+            // three possible formats for the first date
+            $long = "j F Y";
+            $medium = "j F";
+            $short = "j";
+            // decide which format to use
+            if ($d1["year"] != $d2["year"]) {
+                $first_format = $long;
+            } elseif ($d1["mon"] != $d2["mon"]) {
+                $first_format = $medium;
+            } else {
+                $first_format = $short;
+            }
+            $formatted_date_string = date($first_format, $t1).'-'.date($long, $t2);
+        }
+        return $formatted_date_string;
     }
 
 
