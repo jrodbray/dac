@@ -8,13 +8,12 @@
 App::uses('AppHelper', 'View/Helper');
 App::import('Vendor', 'Fpdf', array('file' => 'fpdf/fpdf.php'));
 //vendor('fpdf/fpdf');
-
 if (!defined('PARAGRAPH_STRING')) define('PARAGRAPH_STRING', '~~~');
 
-class fpdfHelper extends AppHelper {
+class FPDFHelper extends AppHelper {
     var $core;
 
-    function fpdfHelper() {
+    function FPDFHelper() {
         $this->core = new FPDF('L', 'mm', 'Letter');
     }
 }
