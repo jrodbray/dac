@@ -60,7 +60,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <body>
 	<div id="container">
 		<div id="header" class="no-print">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
+			<h1>
+            <?php echo
+                $this->Html->link('On-Line Help', '/pages/help',
+                array('target' => '_blank') );
+            ?>
+            </h1>
 		</div>
 		<div id="content">
 			<div class="no-print">

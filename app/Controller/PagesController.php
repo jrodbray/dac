@@ -62,6 +62,12 @@ class PagesController extends AppController {
 		if (!empty($path[$count - 1])) {
 			$title_for_layout = Inflector::humanize($path[$count - 1]);
 		}
+
+        // separate layout for On-Line Help
+        if(strncmp($page, 'help', 4)){
+            $this->layout = 'layout.help';
+        }
+
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
 
 		try {
