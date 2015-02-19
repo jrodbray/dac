@@ -64,7 +64,7 @@ class PagesController extends AppController {
 		}
 
         // separate layout for On-Line Help
-        if(strncmp($page, 'help', 4)){
+        if(strncmp($page, 'help', 4) == 0){
             $this->layout = 'layout.help';
         }
 
