@@ -108,7 +108,7 @@ class PeopleController extends AppController {
             $conditions_array = array();
 
             if ($last_name) {
-                $conditions_array['Person.last_name'] = $last_name;
+                $conditions_array['Person.last_name like'] = $last_name.'%';
             }
             //if ($work_email) {
             //    $conditions_array['Person.work_email'] = $work_email;
