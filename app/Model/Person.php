@@ -18,12 +18,17 @@ class Person extends AppModel {
             'message' => 'Names must only contain letters and numbers.'
         ),
         'work_email' => array(
-            'rule1' => array(
-                'rule' => 'email',
-                'required' => true,
-                'allowEmpty' => false,
-                'message' => 'Please supply a valid email address.'
-            ),
+            'notEmpty',
+            'email' => array(
+            'rule' => '/^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\.)+([A-Za-z0-9]{2,4}|museum)$/',
+            'message' => 'Please supply a valid email address.'),
+            //array(
+            //'rule1' => array(
+            //    'rule' => array('email', false),
+            //    'required' => true,
+            //    'allowEmpty' => false,
+            //    'message' => 'Please supply a valid email address.'
+            //),
             'rule2' => array(
                 'rule' => 'isUnique',
                 'message' => 'Duplicate email address, may indicate duplicate Person.  Please check details.'
