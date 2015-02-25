@@ -12,7 +12,7 @@
     </div>
     <br><br>
 <?php
-echo $this->Html->link( 'Browse',     array(
+echo $this->Html->link( 'Administer',     array(
     'controller' => 'people',
     'action' => 'index',
     'full_base' => true

@@ -18,7 +18,6 @@ echo $this->Html->link( 'Courses',     array(
     'full_base' => true
 ));
 ?>
-
 <br><br>
 <?php
 echo $this->Html->link( 'Instructors',     array(
@@ -31,6 +30,14 @@ echo $this->Html->link( 'Instructors',     array(
 <?php
 echo $this->Html->link( 'Instructional Organizations',     array(
     'controller' => 'entities',
+    'action' => 'index',
+    'full_base' => true
+));
+?>
+<br><br>
+<?php
+echo $this->Html->link( 'FAQ Entries',     array(
+    'controller' => 'faqs',
     'action' => 'index',
     'full_base' => true
 ));
