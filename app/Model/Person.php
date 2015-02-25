@@ -6,13 +6,13 @@ class Person extends AppModel {
     );
     public $validate = array(
         'first_name' => array(
-            'rule' => 'alphaNumeric',
+            'rule' => 'notEmpty',
             'required' => true,
             'allowEmpty' => false,
             'message' => 'Names must only contain letters and numbers.'
         ),
         'last_name' => array(
-            'rule' => 'alphaNumeric',
+            'rule' => 'notEmpty',
             'required' => true,
             'allowEmpty' => false,
             'message' => 'Names must only contain letters and numbers.'
@@ -48,5 +48,17 @@ class Person extends AppModel {
             'message' => 'Please supply a valid phone number.'
         )
     );
+
+    public function getWorkEmail ($term = null) {
+        if(!empty($term)) {
+            $work_emails = $this->find('list', array(
+                'conditions' => array(
+                    'work_email LIKE' => trim($term) . '%'),
+                'fields' => array('work_email')
+            ));
+            return $work_emails;
+        }
+        return false;
+    }
 }
 ?>
