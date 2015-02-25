@@ -3,7 +3,7 @@
 class PeopleController extends AppController {
     public $uses = array('Person', 'Enrollment', 'Course', 'CourseOffering');
 
-    public $components = array('Paginator');
+    public $components = array('Paginator', 'RequestHandler');
 
     public $paginate = array(
         'limit' => 5,
@@ -13,9 +13,17 @@ class PeopleController extends AppController {
         )
     );
 
+    public function getWorkEmail() {
+        if ($this->request->is('ajax')) {
+            $term = $this->request->query('term');
+            $workEmails = $this->Person->getWorkEmail($term);
+            $this->set(compact('workEmails'));
+            $this->set('_serialize', 'workEmails');
+        }
+    }
+
     public function index() {
         $this->response->disableCache();
-
         $active_filter = $this->Session->read('active_filter');
         if( !empty($active_filter) ){
             $this->paginate['conditions'] = $active_filter;

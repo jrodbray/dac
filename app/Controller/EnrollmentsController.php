@@ -6,6 +6,9 @@
  * Date: 2015-01-10
  * Time: 5:10 PM
  */
+App::import('Vendor', 'Fpdf', array('file' => 'fpdf/fpdf.php'));
+App::uses('CakeEmail', 'Network/Email');
+
 class EnrollmentsController extends AppController {
     public $helpers = array('FilterDisplay');
     public $uses = array('Enrollment', 'Course', 'CourseOffering', 'Person', 'Instructor', 'Entity');
@@ -175,11 +178,21 @@ class EnrollmentsController extends AppController {
         $this->set('people', $people);
     }
 
+
     public function  print_certificates(){
         $this->response->disableCache();
         $this->find_and_set_course_offerings();
         //grab all Person instances and pass it to the view:
         $courseOffering = $this->Session->read('course_offering');
+        $data_array = $this->build_certificate_data_array($courseOffering);
+        $this->response->type("application/pdf");
+        $this->layout = 'defaultpdf'; //this will use the defaultpdf.ctp layout
+        $this->set('data_array', $data_array);
+        $this->render(strtolower($courseOffering[0]['Entity']['code']).'_certificates');
+    }
+
+
+    private function build_certificate_data_array($courseOffering){
         $people = $this->Person->find('all', array(
                 'order' => array(
                     'last_name' => 'asc',
@@ -200,27 +213,253 @@ class EnrollmentsController extends AppController {
                 )
             )
         );
-
-        $this->response->type("application/pdf");
-        $this->layout = 'defaultpdf'; //this will use the defaultpdf.ctp layout
         $data_array = array();
         $data_array_index = 0;
         foreach ($people as $person):
             $inner_array = array();
             $inner_array['Name'] = $person['Enrollment']['name_on_certificate'];
-            $inner_array['Course1'] = $courseOffering[0]['Course']['description'];
-            $inner_array['Course2'] = '';
+            $description = explode(';', $courseOffering[0]['Course']['description']);
+            $inner_array['Course1'] = $description[0];
+            if(count($description) > 1){
+                $inner_array['Course2'] = $description[1];
+            }else{
+                $inner_array['Course2'] = '';
+            }
             $inner_array['PDUs'] = $courseOffering[0]['Course']['PDUs'];
-
             $inner_array['Date'] = $this->format_certificate_date($courseOffering);
-
+            $inner_array['email'] = $person['Person']['work_email'];
             $data_array[$data_array_index] = $inner_array;
             $data_array_index++;
         endforeach;
+        return $data_array;
+    }
+
+
+    public function download_certificates(){
+        $this->response->disableCache();
+        $this->find_and_set_course_offerings();
+        $courseOffering = $this->Session->read('course_offering');
+
+        $file = tempnam(sys_get_temp_dir(), 'cert'); //sys_get_temp_dir().DIRECTORY_SEPARATOR.'cert.zip';
+        $zip = new ZipArchive();
+        if($zip->open($file, ZipArchive::CREATE) == true) {
+            $certificate_format = $courseOffering[0]['Entity']['code'];
+            $data_array = $this->build_certificate_data_array($courseOffering);
+            foreach ($data_array as $data):
+                $contents = $this->build_certificate($certificate_format, $data);
+                $file_name = $data['Name'].'_certificate.pdf';
+                $zip->addFromString($file_name, $contents);
+            endforeach;
+        }
+        $zip->close();
+        $this->response->file($file);
+        $this->response->header('Content-Disposition: attachment; filename="cert.zip"');
+        return $this->response;
+    }
+
+    public function build_certificate($certificate_format, $data){
+        switch ($certificate_format) {
+            case 'TDFG':
+                $contents = $this->produce_TDFG_certificate($data);
+                break;
+            case 'SA+A':
+                $contents = $this->produce_SAA_certificate($data);
+                break;
+            case 'Indigo':
+                $contents = $this->produce_Indigo_certificate($data);
+                break;
+            default:
+                $contents = $this->produce_DAC_certificate($data);
+        }
+        return $contents;
+    }
+
+
+    public function email_certificates(){
+        // this can take a while so ...
+        $curr_max_time = ini_get('max_execution_time');
+        ini_set('max_execution_time', '300');
+
+        $this->find_and_set_course_offerings();
+        $courseOffering = $this->Session->read('course_offering');
+        $certificate_format = $courseOffering[0]['Entity']['code'];
+        $data_array = $this->build_certificate_data_array($courseOffering);
+        $count = 0;
+        foreach ($data_array as $data):
+            $contents = $this->build_certificate($certificate_format, $data);
+            $Email = new CakeEmail('smtp');
+            $Email->template('certificate', 'formal')->emailFormat('html');
+            //$Email->to('rodbray@yahoo.com');    // dev
+            $Email->to('louise@scottambler.com');    // prod testing
+            $Email->subject('Your Certificate of Achievement');
+
+            $Email->attachments(array(
+                'certificate.pdf' => array(
+                    'data' => $contents
+                )
+            ));
+
+            $Email->send();
+            $count++;
+        endforeach;
+        // restore max execution time
+        ini_set('max_execution_time', $curr_max_time);
+        //$this->Session->setFlash($count.' Certificates emailed.');
+        //$this->redirect(array('controller' => 'Enrollments', 'action' => 'index'));
+        $this->set('course_offering', $courseOffering);
         $this->set('data_array', $data_array);
-        $this->render(strtolower($courseOffering[0]['Entity']['code']).'_certificates');
+    }
+
+    private function produce_TDFG_certificate($data){
+        $core = new FPDF('L', 'mm', 'Letter');
+        $core = $this->produce_common_certificate_parts($core, $data);
+
+        // logos
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/DAC.jpg', 162,140,0,15);
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/td_logo.jpg', 225,165,0,15);
+
+        $core = $this->produce_third_part_signatures($core, $data);
+
+        $contents = $core->Output('','S');
+        return $contents;
+    }
+
+
+    private function produce_SAA_certificate($data){
+        $core = new FPDF('L', 'mm', 'Letter');
+        $core = $this->produce_common_certificate_parts($core, $data);
+
+        // logos
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/DAC.jpg', 162,140,0,15);
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/SAA_logo.jpg', 184,165,0,15);
+
+        $core = $this->produce_third_part_signatures($core, $data);
+
+        $contents = $core->Output('','S');
+        return $contents;
+    }
+
+
+    private function produce_Indigo_certificate($data){
+        $core = new FPDF('L', 'mm', 'Letter');
+        $core = $this->produce_common_certificate_parts($core, $data);
+
+        // logos
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/DAC.jpg', 162,140,0,15);
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/IndigoCube_Logo.jpg', 214,165,0,18);
+
+        $core = $this->produce_third_part_signatures($core, $data);
+
+        $contents = $core->Output('','S');
+        return $contents;
+    }
+
+
+    private function produce_third_part_signatures($core, $data){
+        // Ambler signature
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/AmblerSignature.jpg', 30,138,40);
+        $core->SetLineWidth(.2);
+        $core->Line(30,150,70,150);
+        $core->SetFont('Calibri', '', 11);
+        $core->SetXY(30,152);
+        $core->Cell(40, 5, 'Scott Ambler');
+
+        // Lines signature
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/LinesSignature.jpg', 30,170,40);
+        $core->SetLineWidth(.2);
+        $core->Line(30,182,70,182);
+        $core->SetFont('Calibri', '', 11);
+        $core->SetXY(30,184);
+        $core->Cell(40, 5, 'Mark Lines');
+
+        // date
+        $core->SetFont('Calibri', '', 12);
+        $core->SetXY(120,176);
+        $core->Cell(40, 5, $data['Date'], 0, 0, 'C');
+        $core->Line(120,182,160,182);
+
+        return $core;
 
     }
+
+
+    private function produce_common_certificate_parts($core, $data) {
+        $core->AddPage();
+        $core->AddFont('Calibri','','calibri.php');
+        $core->AddFont('Calibri','B','calibrib.php');
+        $core->AddFont('Calibri','I','calibrii.php');
+
+        $core->SetFont('Arial','',16);
+        $core->SetLineWidth(1);
+        $core->SetDrawColor(0, 118, 163);
+        $core->Rect(10,10,259,197, 'D');
+        $core->SetLineWidth(.2);
+        $core->Rect(11,11,257,195, 'D');
+
+        $core->SetDrawColor(0);
+
+        $core->SetFont('Calibri','',30);
+        $core->SetXY(80, 20);
+        $core->Cell(120, 20, 'Certificate of Achievement', 0, 0,'C');
+
+        $core->SetTextColor(0,118,163);
+        $core->SetFont('Calibri','B',36);
+        $core->SetXY(80, 50);
+        $core->Cell(120,20,$data['Name'], 0, 0, 'C');
+
+        $core->SetTextColor(0);
+        $core->SetFont('Calibri','I',18);
+        $core->SetXY(80, 70);
+        $core->Cell(120,10,'Has completed the following course', 0, 0, 'C');
+
+        $core->SetFont('Calibri','',30);
+        $core->SetXY(80, 90);
+        $core->Cell(120,10, $data['Course1'], 0, 0, 'C');
+        $core->SetFont('Calibri','',30);
+        $core->SetXY(80, 103);
+        $core->Cell(120,10, $data['Course2'], 0, 0, 'C');
+        $core->SetFont('Calibri','',12);
+        if($data['PDUs']){
+            $core->SetXY(80, 115);
+            $core->Cell(120,10, $data['PDUs'].' PDUs Awarded', 0, 0, 'C');
+        }
+
+        return $core;
+    }
+
+
+    private function produce_DAC_certificate($data){
+        $core = new FPDF('L', 'mm', 'Letter');
+        $core = $this->produce_common_certificate_parts($core, $data);
+        // logo
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/DAC.jpg', 90,140,100);
+
+        // Ambler signature
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/AmblerSignature.jpg', 30,170,40);
+        $core->SetLineWidth(.2);
+        $core->SetFont('Calibri', '', 11);
+        $core->Line(30,182,70,182);
+        $core->SetXY(30,185);
+        $core->Cell(40, 5, 'Scott Ambler');
+
+        // Lines signature
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/LinesSignature.jpg', 200,170,40);
+        $core->SetLineWidth(.2);
+        $core->SetFont('Calibri', '', 11);
+        $core->Line(200,182,240,182);
+        $core->SetXY(200,185);
+        $core->Cell(40, 5, 'Mark Lines');
+
+        // date
+        $core->SetFont('Calibri', '', 12);
+        $core->SetXY(120,176);
+        $core->Cell(40, 5, $data['Date'], 0, 0, 'C');
+        $core->Line(120,182,160,182);
+
+        $contents = $core->Output('','S');
+        return $contents;
+    }
+
 
     public function enroll(){
         $this->find_and_set_course_offerings();
