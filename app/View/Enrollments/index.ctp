@@ -36,7 +36,7 @@ if($course_offerings){
         <th>Course Description</th>
         <th>Instructor</th>
         <th>Location</th>
-        <th>Company</th>
+
         <th class="actions">Actions</th>
     </tr>
 
@@ -51,7 +51,7 @@ if($course_offerings){
             <td><?php echo $course_offering['Course']['description']; ?></td>
             <td><?php echo $course_offering['Entity']['code'].' - '.$course_offering['Person']['last_name']; ?></td>
             <td><?php echo $course_offering['CourseOffering']['location']; ?></td>
-            <td><?php echo $course_offering['CourseOffering']['company']; ?></td>
+
             <?php echo "<td class='action_imgs'>";
                 if($course_offering['CourseOffering']['cancelled']){
                     echo "CANCELLED";
@@ -77,6 +77,20 @@ if($course_offerings){
                         array("alt" => __('Print Certificates'), "title" => __('Print Certificates'))),
                         array('action' => 'print_certificates', $course_offering['CourseOffering']['id']),
                         array('escape' => false, 'target' => '_blank') );
+                    echo "&nbsp;&nbsp;";
+                    echo $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
+                        DIRECTORY_SEPARATOR.'24'.
+                        DIRECTORY_SEPARATOR.'mail.png',
+                        array("alt" => __('Email Certificates'), "title" => __('Email Certificates'))),
+                        array('action' => 'email_certificates', $course_offering['CourseOffering']['id']),
+                        array('escape' => false) );
+                    echo "&nbsp;&nbsp;";
+                    echo $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
+                        DIRECTORY_SEPARATOR.'24'.
+                        DIRECTORY_SEPARATOR.'download.png',
+                        array("alt" => __('Download Certificates'), "title" => __('Download Certificates'))),
+                        array('action' => 'download_certificates', $course_offering['CourseOffering']['id']),
+                        array('escape' => false) );
                     echo "&nbsp;&nbsp;";
                     echo $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
                                                                     DIRECTORY_SEPARATOR.'24'.

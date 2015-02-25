@@ -80,20 +80,6 @@ if($course_offerings){
                     array('action' => 'cancel', $course_offering['CourseOffering']['id']), array(
                     'confirm' => 'Are you sure you want to cancel that Course Offering?',
                         'escape' => false));
-                echo '&nbsp;&nbsp;';
-                echo $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
-                                                                    DIRECTORY_SEPARATOR.'24'.
-                                                                    DIRECTORY_SEPARATOR.'document.png',
-                    array("alt" => __('Class List'), "title" => __('CLass List'))),
-                    array('controller' => 'Enrollments', 'action' => 'class_list', $course_offering['CourseOffering']['id']),
-                    array('escape' => false));
-                echo "&nbsp;&nbsp;";
-                echo $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
-                                                                    DIRECTORY_SEPARATOR.'24'.
-                                                                    DIRECTORY_SEPARATOR.'trophy.png',
-                    array("alt" => __('Print Certificates'), "title" => __('Print Certificates'))),
-                    array('controller' => 'Enrollments', 'action' => 'print_certificates', $course_offering['CourseOffering']['id']),
-                    array('escape' => false, 'target' => '_blank'));
 
             }
         echo "</td>";
