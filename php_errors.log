@@ -216,3 +216,22 @@ Stack trace:
 [10-Feb-2015 19:29:32 America/New_York] PHP Fatal error:  Call to a member function find() on null in C:\inetpub\wwwroot\dac\app\Controller\EnrollmentsController.php on line 66
 [13-Feb-2015 09:17:50 America/New_York] PHP Fatal error:  Call to undefined function image() in C:\inetpub\wwwroot\dac\app\View\Enrollments\index.ctp on line 81
 [13-Feb-2015 13:16:21 America/New_York] PHP Parse error:  syntax error, unexpected '}' in C:\inetpub\wwwroot\dac\app\View\Enrollments\print_certificates.ctp on line 47
+[19-Feb-2015 14:12:03 America/New_York] PHP Fatal error:  Call to undefined method Faq::schema() in C:\inetpub\wwwroot\dac\lib\Cake\Controller\Scaffold.php on line 135
+[20-Feb-2015 18:09:23 America/New_York] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3547435 bytes) in C:\inetpub\wwwroot\dac\lib\Cake\View\View.php on line 964
+[20-Feb-2015 18:21:10 America/New_York] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3547495 bytes) in C:\inetpub\wwwroot\dac\lib\Cake\Event\CakeEventManager.php on line 243
+[20-Feb-2015 18:38:46 America/New_York] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3547479 bytes) in C:\inetpub\wwwroot\dac\lib\Cake\Event\CakeEventManager.php on line 243
+[20-Feb-2015 18:43:26 America/New_York] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3547481 bytes) in C:\inetpub\wwwroot\dac\lib\Cake\Event\CakeEventManager.php on line 243
+[20-Feb-2015 19:56:00 America/New_York] PHP Fatal error:  Call to undefined function build_certificate_data_array() in C:\inetpub\wwwroot\dac\app\Controller\EnrollmentsController.php on line 186
+[20-Feb-2015 20:36:22 America/New_York] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3369522 bytes) in C:\inetpub\wwwroot\dac\lib\Cake\Event\CakeEventManager.php on line 243
+[20-Feb-2015 21:15:26 America/New_York] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3547445 bytes) in C:\inetpub\wwwroot\dac\lib\Cake\View\View.php on line 964
+[20-Feb-2015 21:31:03 America/New_York] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3547389 bytes) in C:\inetpub\wwwroot\dac\lib\Cake\View\View.php on line 964
+[21-Feb-2015 06:18:19 America/New_York] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3547445 bytes) in C:\inetpub\wwwroot\dac\lib\Cake\View\View.php on line 964
+[21-Feb-2015 08:51:40 America/New_York] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\inetpub\wwwroot\dac\app\Vendor\fpdf\fpdf.php on line 1225
+[21-Feb-2015 11:15:22 America/New_York] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\inetpub\wwwroot\dac\lib\Cake\Network\CakeSocket.php on line 298
+[21-Feb-2015 11:16:16 America/New_York] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\inetpub\wwwroot\dac\lib\Cake\Network\CakeSocket.php on line 298
+[21-Feb-2015 11:21:52 America/New_York] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\inetpub\wwwroot\dac\lib\Cake\Network\CakeSocket.php on line 298
+[21-Feb-2015 11:51:14 America/New_York] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\inetpub\wwwroot\dac\app\Vendor\fpdf\fpdf.php on line 1225
+[21-Feb-2015 11:53:31 America/New_York] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\inetpub\wwwroot\dac\lib\Cake\Network\CakeSocket.php on line 275
+[21-Feb-2015 12:12:59 America/New_York] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\inetpub\wwwroot\dac\app\Vendor\fpdf\fpdf.php on line 1213
+[24-Feb-2015 10:20:23 America/New_York] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3027368 bytes) in C:\inetpub\wwwroot\dac\lib\Cake\Event\CakeEventManager.php on line 243
+[24-Feb-2015 10:22:00 America/New_York] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3027368 bytes) in C:\inetpub\wwwroot\dac\lib\Cake\Event\CakeEventManager.php on line 243
