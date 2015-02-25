@@ -18,64 +18,34 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en" class="no-js">
 
 <head>
-    <?php echo $this->Html->charset(); ?>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 
+    <?php
+    echo $this->Html->css('reset');
+    echo $this->Html->css('style');
+    echo $this->Html->script('modernizr');
+    ?>
     <title>
         <?php echo $cakeDescription ?>:
         <?php echo $this->fetch('title'); ?>
     </title>
-    <?php
-    echo $this->Html->meta('icon');
-
-    echo $this->Html->css('cake.generic');
-
-    //echo $this->fetch('meta');
-    //echo $this->fetch('css');
-    echo $this->Html->css('jquery-ui.min');
-    //echo $this->Html->css('jquery-ui.structure.min');
-    //echo $this->Html->css('jquery-ui.theme.min');
-
-    //echo $this->fetch('script');
-    echo $this->Html->script('jquery');
-    echo $this->Html->script('jquery-ui.min');
-
-    ?>
-    <script>
-        $(function() {
-            $( "#datepicker" ).datepicker({dateFormat: "yy-mm-dd"});
-            $( "#datepicker2" ).datepicker({dateFormat: "yy-mm-dd"});
-
-            $( "#PersonLastName" ).on("change", function () {
-                var $nameArray = [$("#PersonFirstName").val(), $("#PersonLastName").val()];
-                $("#PersonNameOnCertificate").val($nameArray.join(' '));
-            });
-
-        });
-    </script>
-
 </head>
 <body>
-<div id="container">
-    <div id="header" class="no-print">
-        <h1> </h1>
-    </div>
+<!-- <div id="container"> -->
+    <header>
+        <h1>Student DB Help</h1>
+    </header>
     <div id="content">
-        <div class="no-print">
-            <?php echo $this->Session->flash(); ?>
-        </div>
         <?php echo $this->fetch('content'); ?>
     </div>
-    <div id="footer" class="no-print">
-        <?php echo $this->Html->link(
-            $this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-            'http://www.cakephp.org/',
-            array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
-        );
-        ?>
-    </div>
-</div>
+<!-- </div> -->
+<?php echo $this->Html->script('jquery'); ?>
+<?php echo $this->Html->script('jquery.mobile.custom.min'); ?>
+<?php echo $this->Html->script('main'); ?>
 </body>
 </html>

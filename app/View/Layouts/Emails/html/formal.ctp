@@ -8,28 +8,16 @@
 ?>
 <!DOCTYPE html>
 <html>
-
-<head>
-    <?php echo $this->Html->charset(); ?>
-
-    <?php
-    echo $this->Html->meta('icon');
-
-    echo $this->Html->css('cake.generic');
-    ?>
-</head>
 <body>
 <div id="container">
-    <div id="header" class="no-print">
+    <div id="header">
         <h1>Your Certificate</h1>
     </div>
     <div id="content">
         <?php echo $this->fetch('content'); ?>
     </div>
-    <div id="footer" class="no-print">
-        <p>
-            <?php echo $cakeVersion; ?>
-        </p>
+    <div id="footer">
+        <p><font color="#a9a9a9">&copy; Disciplined Agile Consortium</font></p>
     </div>
 </div>
 </body>

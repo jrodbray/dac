@@ -53,8 +53,14 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				$("#PersonNameOnCertificate").val($nameArray.join(' '));
 			});
 
+            $('#autocomplete').autocomplete({source: "http://localhost/dac/People/getWorkEmail.json"});
 		});
 	</script>
+    <style>
+        #progressbar .ui-progressbar-value {
+            background-color: #ccc;
+        }
+    </style>
 
 </head>
 <body>
@@ -62,7 +68,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		<div id="header" class="no-print">
 			<h1>
             <?php echo
-                $this->Html->link('On-Line Help', '/pages/help',
+                $this->Html->link('FAQ', array(
+                    'controller' => 'faqs',
+                    'action' => 'create_faq_page'
+                ),
+                    //'/pages/help',
                 array('target' => '_blank') );
             ?>
             </h1>
