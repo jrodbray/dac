@@ -8,7 +8,12 @@
 App::uses('AppModel', 'Model');
 class CourseOffering extends AppModel{
     public $hasMany = array(
-        'Enrollment'
+        'Enrollment' => array(
+            'className'=>'Enrollment',
+            'foreignKey'=>'course_offering_id',
+            'dependent'=>true,
+            'exclusive'=>true
+        )
     );
     public $belongsTo = array(
         'Course', 'Instructor', 'Entity'

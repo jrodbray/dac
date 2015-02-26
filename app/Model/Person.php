@@ -2,8 +2,14 @@
 App::uses('AppModel', 'Model');
 class Person extends AppModel {
     public $hasMany = array(
-        'Enrollment'
+        'Enrollment' => array(
+            'className'=>'Enrollment',
+            'foreignKey'=>'person_id',
+            'dependent'=>true,
+            'exclusive'=>true
+        )
     );
+
     public $validate = array(
         'first_name' => array(
             'rule' => 'notEmpty',
@@ -17,18 +23,14 @@ class Person extends AppModel {
             'allowEmpty' => false,
             'message' => 'Names must only contain letters and numbers.'
         ),
-        'work_email' => array(
-            'notEmpty',
-            'email' => array(
-            'rule' => '/^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\.)+([A-Za-z0-9]{2,4}|museum)$/',
-            'message' => 'Please supply a valid email address.'),
-            //array(
-            //'rule1' => array(
-            //    'rule' => array('email', false),
-            //    'required' => true,
-            //    'allowEmpty' => false,
-            //    'message' => 'Please supply a valid email address.'
-            //),
+        'work_email' =>
+            array(
+            'rule1' => array(
+                'rule' => 'notEmpty',
+                'required' => true,
+                'allowEmpty' => false,
+                'message' => 'Please supply a valid email address.'
+            ),
             'rule2' => array(
                 'rule' => 'isUnique',
                 'message' => 'Duplicate email address, may indicate duplicate Person.  Please check details.'

@@ -8,7 +8,11 @@
 App::uses('AppModel', 'Model');
 class Enrollment extends AppModel{
     public $belongsTo = array(
-        'Person', 'CourseOffering'
+        'Person'=>array('className'=>'Person',
+            'foreignKey'=>'person_id'),
+        'CourseOffering'=>array('className'=>'CourseOffering',
+            'foreignKey'=>'course_offering_id'
+        )
     );
 
 
