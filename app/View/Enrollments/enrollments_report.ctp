@@ -37,6 +37,8 @@ if($enrollments) {
             echo "<b>".$enrollment['Course']['course_code']." - ".$enrollment['Course']['description']."</b>&nbsp;(".
                  $enrollment['CourseOffering']['date']."), ".$enrollment['I']['first_name']."&nbsp;".$enrollment['I']['last_name'].
                  "&nbsp;-&nbsp;<b>".$enrollment['InstructingOrg']['code']."</b>";
+            echo "<br>";
+            echo $enrollment['CourseOffering']['admin_notes'];
             echo "<br><br>";
             echo "<table>";
 
@@ -46,6 +48,7 @@ if($enrollments) {
             echo "<th>Last Name</th>";
             echo "<th>Work Email</th>";
             echo "<th>Name on Certificate</th>";
+            echo "<th>Notes</th>";
             echo "</tr>";
 
             $last_co = $enrollment['Course']['course_code'].':'.$enrollment['CourseOffering']['date'].':'.$enrollment['I']['id'];
@@ -55,6 +58,7 @@ if($enrollments) {
         echo "<td>{$enrollment['EE']['last_name']}</td>";
         echo "<td>{$enrollment['EE']['work_email']}</td>";
         echo "<td>{$enrollment['EE']['name_on_certificate']}</td>";
+        echo "<td>{$enrollment['EE']['student_admin_notes']}</td>";
         echo "</tr>";
         $enrollment_count++;
     }

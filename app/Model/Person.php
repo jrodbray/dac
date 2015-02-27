@@ -27,6 +27,8 @@ class Person extends AppModel {
             array(
             'rule1' => array(
                 'rule' => 'notEmpty',
+                // attempted use of following Regex abandoned 2015/02/26
+                //^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\.)+([A-Za-z0-9]{2,4}|museum)$
                 'required' => true,
                 'allowEmpty' => false,
                 'message' => 'Please supply a valid email address.'

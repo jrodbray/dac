@@ -468,7 +468,8 @@ class EnrollmentsController extends AppController {
 
     public function enroll_existing() {
         $this->find_and_set_course_offerings();
-        $this->redirect(array('controller' => 'People', 'action' => 'search_with_enrollment'));
+        //$this->redirect(array('controller' => 'People', 'action' => 'search_with_enrollment'));
+        $this->redirect(array('controller' => 'People', 'action' => 'getWorkEmail'));
     }
 
     public function edit_enrollments(){

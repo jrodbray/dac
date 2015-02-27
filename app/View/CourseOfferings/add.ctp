@@ -42,7 +42,7 @@ endforeach;
 echo $this->Form->select('course_id',$options, array('empty' => 'Select Course'));
 echo $this->Form->input('location');
 echo $this->Form->input('company');
-
+echo $this->Form->input('admin_notes');
 echo $this->Form->end('Submit');
 ?>
 <br>

@@ -47,6 +47,7 @@ if($course_offerings){
         <th>Instructor</th>
         <th>Location</th>
         <th>Company</th>
+        <th>Notes</th>
         <th>Action</th>
     </tr>
 
@@ -62,6 +63,7 @@ if($course_offerings){
         <td><?php echo $course_offering['Entity']['code'].' - '.$course_offering['Person']['last_name']; ?></td>
         <td><?php echo $course_offering['CourseOffering']['location']; ?></td>
         <td><?php echo $course_offering['CourseOffering']['company']; ?></td>
+        <td><?php echo $course_offering['CourseOffering']['admin_notes']; ?></td>
         <?php echo "<td class='action_imgs'>";
             if($course_offering['CourseOffering']['cancelled']){
                 echo "CANCELLED";

@@ -22,6 +22,59 @@ class PeopleController extends AppController {
         }
     }
 
+    public function fillForm() {
+
+        $email = $this->request->query['workEmail']; //data['Person']['work_email'];
+
+        if( $this->request->is( 'post' ) || $this->request->is( 'put' ) ){
+            //save Person
+            $course_offering = $this->Session->read('course_offering');
+            $person = $this->Person->save( $this->request->data );
+            if(!empty($person)){
+                // The ID of the newly created Person has been set
+                // as $this->Person->id. OR the existing Person id is available
+                $this->request->data['Enrollment']['person_id'] = $this->Person->id;
+                // build Enrollment data for saving
+                $enrollment_data = array('person_id' => $this->Person->id,
+                    'course_offering_id' => $course_offering[0]['CourseOffering']['id'],
+                    'enrollment_date' => $this->request->data['Person']['enrollment_date'],
+                    'name_on_certificate' => $this->request->data['Person']['name_on_certificate']
+                );
+
+                $enrollment = $this->Enrollment->save($enrollment_data);
+
+                if(!empty($enrollment)) {
+                    //set flash to People screen
+                    $course_code = $course_offering[0]['Course']['course_code'];
+                    $course_start = $course_offering[0]['CourseOffering']['date'];
+                    $this->Session->setFlash('Person was enrolled in course - ' . $course_code . ' / ' . $course_start);
+                    unset($this->request->data['Person']);
+                }else {
+                    // if Enrollment save failed
+                    $this->Session->setFlash("Person added but not enrolled.");
+                }
+            }else{
+                //if save failed
+                $this->Session->setFlash('Unable to save Person. Please, try again.');
+            }
+            //redirect to Enrollments list
+            $this->redirect(array('controller' => 'Enrollments', 'action' => 'index'));
+        }else{
+            //we will read the Person data
+            //so it will fill up our html form automatically
+            $this->request->data = $this->Person->findByWorkEmail($email);
+            // a little magic here to set the Name on Certificate to a default
+            $this->request->data['Person']['name_on_certificate'] =
+                $this->request->data['Person']['first_name'].' '.
+                $this->request->data['Person']['last_name'];
+
+            // replace the entered email (just in case they had rekeyed it
+            $this->request->data['Person']['work_email'] = $email;
+        }
+    }
+
+
+
     public function index() {
         $this->response->disableCache();
         $active_filter = $this->Session->read('active_filter');

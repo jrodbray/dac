@@ -15,4 +15,8 @@
   echo $this->Form->create(false);
   echo $this->Form->input('workEmail', array('class' => 'ui-widget', 'id' => 'autocomplete'));
   echo $this->Form->end();
+
+  echo $this->Form->create('Person', array('type' => 'get', 'action' => 'fillForm', 'id' => 'workEmailForm'));
+  echo $this->Form->input('workEmail', array('type' => 'hidden', 'id' => 'email_key'));
+  echo $this->Form->submit('Next');
 ?>

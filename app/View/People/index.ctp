@@ -65,7 +65,7 @@ echo "<table>";
             'action' => 'delete',
             $person['Person']['id']), array(
             'confirm'=>'Are you sure you want to delete that Person?' ) );
-        echo $this->Html->link( 'Course Details', array('controller' => 'CourseOfferings', 'action' => 'course_details', $person['Person']['id']) );
+        echo $this->Html->link( 'Course History', array('controller' => 'CourseOfferings', 'action' => 'course_details', $person['Person']['id']) );
         echo "</td>";
         echo "</tr>";
     }

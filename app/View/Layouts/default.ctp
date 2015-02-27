@@ -53,6 +53,10 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				$("#PersonNameOnCertificate").val($nameArray.join(' '));
 			});
 
+            $( "#workEmailForm").on("submit", function () {
+               $("#email_key").val( $("#autocomplete").val() );
+            });
+
             $('#autocomplete').autocomplete({source: "http://localhost/dac/People/getWorkEmail.json"});
 		});
 	</script>
@@ -99,7 +103,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		</div>
 	</div>
 	<div class="no-print">
-	<?php //echo $this->element('sql_dump'); ?>
+	<?php echo $this->element('sql_dump'); ?>
 	</div>
 </body>
 </html>
