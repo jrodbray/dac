@@ -57,6 +57,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                $("#email_key").val( $("#autocomplete").val() );
             });
 
+            //$('#autocomplete').autocomplete({source: "http://scottambler.com/dac/People/getWorkEmail.json"});
             $('#autocomplete').autocomplete({source: "http://localhost/dac/People/getWorkEmail.json"});
 		});
 	</script>
@@ -103,7 +104,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		</div>
 	</div>
 	<div class="no-print">
-	<?php echo $this->element('sql_dump'); ?>
+	<?php //echo $this->element('sql_dump'); ?>
 	</div>
 </body>
 </html>

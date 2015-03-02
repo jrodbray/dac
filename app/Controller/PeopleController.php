@@ -14,6 +14,7 @@ class PeopleController extends AppController {
     );
 
     public function getWorkEmail() {
+        $this->response->disableCache();
         if ($this->request->is('ajax')) {
             $term = $this->request->query('term');
             $workEmails = $this->Person->getWorkEmail($term);
@@ -62,12 +63,15 @@ class PeopleController extends AppController {
         }else{
             //we will read the Person data
             //so it will fill up our html form automatically
-            $this->request->data = $this->Person->findByWorkEmail($email);
+            $person = $this->Person->findByWorkEmail($email);
+            $this->request->data = $person;
             // a little magic here to set the Name on Certificate to a default
-            $this->request->data['Person']['name_on_certificate'] =
-                $this->request->data['Person']['first_name'].' '.
-                $this->request->data['Person']['last_name'];
-
+            // but only if the Person has been found
+            if($person) {
+                $this->request->data['Person']['name_on_certificate'] =
+                    $this->request->data['Person']['first_name'] . ' ' .
+                    $this->request->data['Person']['last_name'];
+            }
             // replace the entered email (just in case they had rekeyed it
             $this->request->data['Person']['work_email'] = $email;
         }

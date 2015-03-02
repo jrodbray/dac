@@ -63,6 +63,7 @@ class Person extends AppModel {
             $work_emails = $this->find('list', array(
                 'conditions' => array(
                     'work_email LIKE' => trim($term) . '%'),
+                'order' => array('work_email' => 'asc'),
                 'fields' => array('work_email')
             ));
             return $work_emails;
