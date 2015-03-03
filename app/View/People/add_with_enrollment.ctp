@@ -12,7 +12,7 @@
         <td><b><?php echo $course_offering[0]['CourseOffering']['location']; ?></b></td>
     </tr>
 </table>
-<!-- link to list users page -->
+<!-- link to list course offerings for enrollments page -->
 <div class='upper-right-opt'>
     <?php echo $this->Html->link( 'Back to Enrollments', array( 'controller' => 'Enrollments', 'action' => 'index' ) ); ?>
 </div>
