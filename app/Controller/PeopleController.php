@@ -6,7 +6,7 @@ class PeopleController extends AppController {
     public $components = array('Paginator', 'RequestHandler');
 
     public $paginate = array(
-        'limit' => 5,
+        'limit' => 15,
         'order' => array(
             'Person.last_name' => 'asc',
             'Person.first_name' => 'asc'
