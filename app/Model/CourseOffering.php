@@ -23,12 +23,12 @@ class CourseOffering extends AppModel{
     //);
 
     public $validate = array(
-        'location' => array(
-            'rule' => 'notEmpty',
-            'required' => true,
-            'allowEmpty' => false,
-            'message' => 'Location is required.'
-        ),
+        //'location' => array(
+        //    'rule' => 'notEmpty',
+        //    'required' => true,
+        //    'allowEmpty' => false,
+        //    'message' => 'Location is required.'
+        //),
         'date' => array(
             'rule' => array('date', 'ymd'),
             'required' => true,
