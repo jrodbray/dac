@@ -12,7 +12,7 @@ class CourseOfferingsController extends AppController {
     public $components = array('Paginator');
 
     public $paginate = array(
-        'limit' => 5,
+        'limit' => 10,
         'joins' => array(
             array(
                 'table' => 'people',
