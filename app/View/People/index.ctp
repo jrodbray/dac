@@ -1,6 +1,4 @@
 <!-- File: /app/View/People/index.ctp -->
-
-
 <?php
 $active_filter = $this->Session->read('active_filter');
 if($active_filter) {
