@@ -58,8 +58,9 @@ class PeopleController extends AppController {
                 //if save failed
                 $this->Session->setFlash('Unable to save Person. Please, try again.');
             }
-            //redirect to Enrollments list
-            $this->redirect(array('controller' => 'Enrollments', 'action' => 'index'));
+            // now that we look people up by email to enroll both new and existing people into course offerings
+            // we must redirect back to the 'get_work_email'
+            $this->redirect(array('controller' => 'People', 'action' => 'getWorkEmail'));
         }else{
             //we will read the Person data
             //so it will fill up our html form automatically
