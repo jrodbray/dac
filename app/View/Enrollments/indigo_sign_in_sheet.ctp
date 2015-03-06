@@ -31,7 +31,7 @@ for($loop=0; $loop<20; $loop++) {
 
 
         $core->Image('http://scottambler.com/dac/app/webroot/img/DAC.jpg', 10, 10, 100);
-        $core->Image('http://scottambler.com/dac/app/webroot/img/td_logo.jpg', 245, 12, 0, 15);
+        $core->Image('http://scottambler.com/dac/app/webroot/img/IndigoCube_Logo.jpg', 240, 12, 0, 20);
 
         $core->SetTextColor(0, 0, 0);
         $core->SetFont('Calibri', '', 10);
