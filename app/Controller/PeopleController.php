@@ -28,6 +28,9 @@ class PeopleController extends AppController {
         $email = $this->request->query['workEmail']; //data['Person']['work_email'];
 
         if( $this->request->is( 'post' ) || $this->request->is( 'put' ) ){
+            // if we have an id being passed to us then this is an existing person
+            // we'll use this later for messages back to the user
+            $existing_person_id = $this->request->data['Person']['id'];
             //save Person
             $course_offering = $this->Session->read('course_offering');
             $person = $this->Person->save( $this->request->data );
@@ -48,7 +51,11 @@ class PeopleController extends AppController {
                     //set flash to People screen
                     $course_code = $course_offering[0]['Course']['course_code'];
                     $course_start = $course_offering[0]['CourseOffering']['date'];
-                    $this->Session->setFlash('Person was enrolled in course - ' . $course_code . ' / ' . $course_start);
+                    $existing_msg = 'New Person ';
+                    if($existing_person_id){
+                        $existing_msg = 'Existing Person ';
+                    }
+                    $this->Session->setFlash($existing_msg.$person['Person']['work_email'].' was enrolled in course - ' . $course_code . ' / ' . $course_start);
                     unset($this->request->data['Person']);
                 }else {
                     // if Enrollment save failed
