@@ -100,6 +100,12 @@ Configure::write('Dispatcher.filters', array(
 ));
 
 /**
+ * Custom configuration load
+ */
+Configure::load('dac_config');
+
+
+/**
  * Configures default file logging options
  */
 App::uses('CakeLog', 'Log');
