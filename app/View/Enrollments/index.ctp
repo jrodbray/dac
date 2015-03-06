@@ -73,9 +73,9 @@ if($course_offerings){
                     echo "&nbsp;&nbsp;";
                     echo $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
                         DIRECTORY_SEPARATOR.'24'.
-                        DIRECTORY_SEPARATOR.'trophy.png',
-                        array("alt" => __('Print Certificates'), "title" => __('Print Certificates'))),
-                        array('action' => 'print_certificates', $course_offering['CourseOffering']['id']),
+                        DIRECTORY_SEPARATOR.'folder.png',
+                        array("alt" => __('Sign-in Sheet'), "title" => __('Sign-in Sheet'))),
+                        array('action' => 'print_sign_in_sheet', $course_offering['CourseOffering']['id']),
                         array('escape' => false, 'target' => '_blank') );
                     echo "&nbsp;&nbsp;";
                     echo $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
