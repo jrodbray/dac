@@ -49,7 +49,7 @@ for($loop=0; $loop<20; $loop++) {
 
         $core->SetXY(20, 42);
         $core->Cell(20, 5, 'Date:', 0, 0, 'R');
-        $core->Cell(20, 5, '7-9 July 2015', 0, 0, 'L');
+        $core->Cell(20, 5, $date, 0, 0, 'L');
 
         $core->SetFont('Calibri', 'B', 10);
         $core->SetXY(10, 52);

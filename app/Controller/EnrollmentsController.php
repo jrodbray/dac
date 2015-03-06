@@ -155,6 +155,16 @@ class EnrollmentsController extends AppController {
         $this->set('query_string', $query_string);
     }
 
+    public function feedback_form(){
+        $this->response->disableCache();
+        $this->find_and_set_course_offerings();
+
+        $this->response->type("application/pdf");
+        $this->layout = 'defaultpdf'; //this will use the defaultpdf.ctp layout
+        //$this->render(strtolower($courseOffering[0]['Entity']['code']).'_sign_in_sheet');
+        $this->render('feedback_form');
+    }
+
     public function class_list(){
         $this->response->disableCache();
         $this->find_and_set_course_offerings();
@@ -188,6 +198,7 @@ class EnrollmentsController extends AppController {
         $this->find_and_set_course_offerings();
         //grab all Person instances and pass it to the view:
         $courseOffering = $this->Session->read('course_offering');
+        $this->set('date', $this->format_certificate_date($courseOffering));
 
         $data_array = $this->Person->find('all', array(
                 'order' => array(
@@ -210,12 +221,9 @@ class EnrollmentsController extends AppController {
             )
         );
 
-
-
         $this->response->type("application/pdf");
         $this->layout = 'defaultpdf'; //this will use the defaultpdf.ctp layout
         $this->set('data_array', $data_array);
-        //$this->render(strtolower($courseOffering[0]['Entity']['code']).'_certificates');
         $this->render(strtolower($courseOffering[0]['Entity']['code']).'_sign_in_sheet');
     }
 
