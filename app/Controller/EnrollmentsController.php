@@ -36,6 +36,11 @@ class EnrollmentsController extends AppController {
             'CourseOffering.cancelled' => 'asc'
         )
     );
+
+    // global variable
+    private $curr_max_time = 0;
+
+
     public function detail() {
         $conditions = array('conditions' => array('person_id' => 1));
         $enrollment = $this->Enrollment->find('first', $conditions);
@@ -178,6 +183,42 @@ class EnrollmentsController extends AppController {
         $this->set('people', $people);
     }
 
+    public function print_sign_in_sheet(){
+        $this->response->disableCache();
+        $this->find_and_set_course_offerings();
+        //grab all Person instances and pass it to the view:
+        $courseOffering = $this->Session->read('course_offering');
+
+        $data_array = $this->Person->find('all', array(
+                'order' => array(
+                    'last_name' => 'asc',
+                    'first_name' => 'asc'
+                ),
+                'joins' => array(
+                    array(
+                        'table' => 'enrollments',
+                        'alias' => 'Enrollment',
+                        //'type' => 'left',
+                        'foreignKey' => false,
+                        'conditions'=> array('Person.id = Enrollment.person_id')
+                    )
+                ),
+                'fields' => array('Person.*', 'Enrollment.*'),
+                'conditions' => array(
+                    'Enrollment.course_offering_id' => $courseOffering[0]['CourseOffering']['id']
+                )
+            )
+        );
+
+
+
+        $this->response->type("application/pdf");
+        $this->layout = 'defaultpdf'; //this will use the defaultpdf.ctp layout
+        $this->set('data_array', $data_array);
+        //$this->render(strtolower($courseOffering[0]['Entity']['code']).'_certificates');
+        $this->render(strtolower($courseOffering[0]['Entity']['code']).'_sign_in_sheet');
+    }
+
 
     public function  print_certificates(){
         $this->response->disableCache();
@@ -236,6 +277,9 @@ class EnrollmentsController extends AppController {
 
 
     public function download_certificates(){
+        // this can take a while so ...
+        $this->be_patient();
+
         $this->response->disableCache();
         $this->find_and_set_course_offerings();
         $courseOffering = $this->Session->read('course_offering');
@@ -252,6 +296,9 @@ class EnrollmentsController extends AppController {
             endforeach;
         }
         $zip->close();
+        // restore max execution time
+        ini_set('max_execution_time', $this->curr_max_time);
+
         $this->response->file($file);
         $this->response->header('Content-Disposition: attachment; filename="cert.zip"');
         return $this->response;
@@ -277,8 +324,7 @@ class EnrollmentsController extends AppController {
 
     public function email_certificates(){
         // this can take a while so ...
-        $curr_max_time = ini_get('max_execution_time');
-        ini_set('max_execution_time', '300');
+        $this->be_patient();
 
         $this->find_and_set_course_offerings();
         $courseOffering = $this->Session->read('course_offering');
@@ -303,7 +349,7 @@ class EnrollmentsController extends AppController {
             $count++;
         endforeach;
         // restore max execution time
-        ini_set('max_execution_time', $curr_max_time);
+        ini_set('max_execution_time', $this->curr_max_time);
         //$this->Session->setFlash($count.' Certificates emailed.');
         //$this->redirect(array('controller' => 'Enrollments', 'action' => 'index'));
         $this->set('course_offering', $courseOffering);
@@ -567,6 +613,17 @@ class EnrollmentsController extends AppController {
     private function find_and_set_course_offerings(){
         $id = $this->request->params['pass'][0];
         $courseOffering = $this->CourseOffering->find('all', array(
+            'joins' => array(
+                array(
+                    'table' => 'people',
+                    'alias' => 'InstructingPerson',
+                    'type' => 'left',
+                    'foreignKey' => false,
+                    'conditions'=> array('Instructor.person_id = InstructingPerson.id')
+                )
+            ),
+            'fields' => array('CourseOffering.*', 'Course.*', 'Entity.*', 'InstructingPerson.*'),
+
             'conditions' => array(
                 'CourseOffering.id' => $id
             )
@@ -607,6 +664,12 @@ class EnrollmentsController extends AppController {
         return $formatted_date_string;
     }
 
+    private function be_patient(){
+        $curr_max_time = ini_get('max_execution_time');
+        ini_set('max_execution_time', '300');
+        $this->curr_max_time = $curr_max_time;
+        //return $curr_max_time;
+    }
 
 }
 
