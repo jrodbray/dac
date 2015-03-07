@@ -45,7 +45,7 @@ for($loop=0; $loop<20; $loop++) {
 
         $core->SetXY(20, 38);
         $core->Cell(20, 5, 'Instructor:', 0, 0, 'R');
-        $core->Cell(20, 5, $courseOffering[0]['InstructingPerson']['last_name'], 0, 0, 'L');
+        $core->Cell(20, 5, $courseOffering[0]['InstructingPerson']['first_name'].' '.$courseOffering[0]['InstructingPerson']['last_name'], 0, 0, 'L');
 
         $core->SetXY(20, 42);
         $core->Cell(20, 5, 'Date:', 0, 0, 'R');

@@ -158,11 +158,13 @@ class EnrollmentsController extends AppController {
     public function feedback_form(){
         $this->response->disableCache();
         $this->find_and_set_course_offerings();
+        $courseOffering = $this->Session->read('course_offering');
+        $this->set('date', $this->format_certificate_date($courseOffering));
 
         $this->response->type("application/pdf");
         $this->layout = 'defaultpdf'; //this will use the defaultpdf.ctp layout
-        //$this->render(strtolower($courseOffering[0]['Entity']['code']).'_sign_in_sheet');
-        $this->render('feedback_form');
+        $this->render(strtolower($courseOffering[0]['Entity']['code']).'_feedback_form');
+        //$this->render('indigo_feedback_form');
     }
 
     public function class_list(){

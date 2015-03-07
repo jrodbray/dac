@@ -236,3 +236,14 @@ Stack trace:
 [24-Feb-2015 10:20:23 America/New_York] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3027368 bytes) in C:\inetpub\wwwroot\dac\lib\Cake\Event\CakeEventManager.php on line 243
 [24-Feb-2015 10:22:00 America/New_York] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3027368 bytes) in C:\inetpub\wwwroot\dac\lib\Cake\Event\CakeEventManager.php on line 243
 [27-Feb-2015 12:38:20 America/New_York] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3547445 bytes) in C:\inetpub\wwwroot\dac\lib\Cake\View\View.php on line 964
+[04-Mar-2015 14:43:40 America/New_York] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3393299 bytes) in C:\inetpub\wwwroot\dac\lib\Cake\View\View.php on line 958
+[05-Mar-2015 09:07:22 America/New_York] PHP Parse error:  syntax error, unexpected ':' in C:\inetpub\wwwroot\dac\app\View\Enrollments\sign_in_sheet.ctp on line 64
+[05-Mar-2015 09:49:07 America/New_York] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3548616 bytes) in C:\inetpub\wwwroot\dac\lib\Cake\View\View.php on line 964
+[05-Mar-2015 09:51:44 America/New_York] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\inetpub\wwwroot\dac\app\Vendor\fpdf\fpdf.php on line 1213
+[05-Mar-2015 09:55:04 America/New_York] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\inetpub\wwwroot\dac\app\Vendor\fpdf\fpdf.php on line 1213
+[05-Mar-2015 09:56:00 America/New_York] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\inetpub\wwwroot\dac\app\Vendor\fpdf\fpdf.php on line 1225
+[05-Mar-2015 15:12:49 America/New_York] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 3547445 bytes) in C:\inetpub\wwwroot\dac\lib\Cake\View\View.php on line 964
+[06-Mar-2015 15:48:54 America/New_York] PHP Fatal error:  Call to undefined function mb_convert_encoding() in C:\inetpub\wwwroot\dac\app\Vendor\tfpdf\tfpdf.php on line 2260
+[06-Mar-2015 15:51:29 America/New_York] PHP Fatal error:  require() [<a href='http://php.net/function.require'>function.require</a>]: Failed opening required 'tfpdf.php' (include_path='.;C:\php-5.6.4-nts-Win32-VC11-x86\phpunit.phar') in C:\inetpub\wwwroot\dac\app\View\Enrollments\feedback_form.ctp on line 11
+[06-Mar-2015 15:52:15 America/New_York] PHP Fatal error:  Call to undefined function mb_convert_encoding() in C:\inetpub\wwwroot\dac\app\Vendor\tfpdf\tfpdf.php on line 2260
+[06-Mar-2015 16:08:08 America/New_York] PHP Fatal error:  Call to undefined function mb_convert_encoding() in C:\inetpub\wwwroot\dac\app\Vendor\tfpdf\tfpdf.php on line 2260

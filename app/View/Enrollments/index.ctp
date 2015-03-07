@@ -80,6 +80,13 @@ if($course_offerings){
                     echo "&nbsp;&nbsp;";
                     echo $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
                         DIRECTORY_SEPARATOR.'24'.
+                        DIRECTORY_SEPARATOR.'comment.png',
+                        array("alt" => __('Feedback Form'), "title" => __('Feedback Form'))),
+                        array('action' => 'feedback_form', $course_offering['CourseOffering']['id']),
+                        array('escape' => false, 'target' => '_blank') );
+                    echo "&nbsp;&nbsp;";
+                    echo $this->Form->postLink($this->Html->image('ico'.DIRECTORY_SEPARATOR.'PNGs'.
+                        DIRECTORY_SEPARATOR.'24'.
                         DIRECTORY_SEPARATOR.'mail.png',
                         array("alt" => __('Email Certificates'), "title" => __('Email Certificates'))),
                         array('action' => 'email_certificates', $course_offering['CourseOffering']['id']),
