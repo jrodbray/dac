@@ -26,12 +26,12 @@ foreach ($data_array as $data):
     $core->SetDrawColor(0, 118, 163);
     $core->Rect(10,10,259,197, 'D');
     $core->SetLineWidth(.2);
-    $core->Rect(11,11,257,195, 'D');
+    $core->Rect(25,25,227,165, 'D');
 
     $core->SetDrawColor(0);
 
     $core->SetFont('Calibri','',30);
-    $core->SetXY(80, 20);
+    $core->SetXY(80, 30);
     $core->Cell(120, 20, 'Certificate of Achievement', 0, 0,'C');
 
     $core->SetTextColor(0,118,163);
@@ -53,29 +53,29 @@ foreach ($data_array as $data):
     $core->SetFont('Calibri','',12);
     if($data['PDUs']){
         $core->SetXY(80, 115);
-        $core->Cell(120,10, $data['PDUs'].' PDUs Awarded', 0, 0, 'C');
+        $core->Cell(120,10, $data['PDUs'].' Training Hours', 0, 0, 'C');
     }
 
-    $core->Image( 'http://scottambler.com/dac/app/webroot/img/DAC.jpg', 162,140,0,15);
-    $core->Image( 'http://scottambler.com/dac/app/webroot/img/td_logo.jpg', 225,165,0,15);
+    $core->Image( 'http://scottambler.com/dac/app/webroot/img/DAC.jpg', 152,130,0,15);
+    $core->Image( 'http://scottambler.com/dac/app/webroot/img/td_logo.jpg', 215,155,0,15);
 
-    $core->Image( 'http://scottambler.com/dac/app/webroot/img/AmblerSignature.jpg', 30,138,40);
+    $core->Image( 'http://scottambler.com/dac/app/webroot/img/AmblerSignature.jpg', 40,128,40);
     $core->SetLineWidth(.2);
-    $core->Line(30,150,70,150);
+    $core->Line(40,140,80,140);
     $core->SetFont('Calibri', '', 11);
-    $core->SetXY(30,152);
+    $core->SetXY(40,142);
     $core->Cell(40, 5, 'Scott Ambler');
 
-    $core->Image( 'http://scottambler.com/dac/app/webroot/img/LinesSignature.jpg', 30,170,40);
+    $core->Image( 'http://scottambler.com/dac/app/webroot/img/LinesSignature.jpg', 40,160,40);
     $core->SetLineWidth(.2);
-    $core->Line(30,182,70,182);
-    $core->SetXY(30,184);
+    $core->Line(40,172,80,172);
+    $core->SetXY(40,174);
     $core->Cell(40, 5, 'Mark Lines');
 
     $core->SetFont('Calibri', '', 12);
-    $core->SetXY(120,176);
+    $core->SetXY(120,166);
     $core->Cell(40, 5, $data['Date'], 0, 0, 'C');
-    $core->Line(120,182,160,182);
+    $core->Line(120,172,160,172);
 
 
 endforeach;
