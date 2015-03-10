@@ -310,7 +310,7 @@ class EnrollmentsController extends AppController {
         ini_set('max_execution_time', $this->curr_max_time);
 
         $this->response->file($file);
-        $this->response->header('Content-Disposition: attachment; filename="cert.zip"');
+        $this->response->header('Content-Disposition: attachment; filename=cert.zip');
         return $this->response;
     }
 
@@ -346,7 +346,7 @@ class EnrollmentsController extends AppController {
             $Email = new CakeEmail('smtp');
             $Email->template('certificate', 'formal')->emailFormat('html');
             //$Email->to('rodbray@yahoo.com');    // dev
-            $Email->to('louise@scottambler.com');    // prod testing
+            $Email->to('admin@disciplinedagileconsortium.org');    // prod testing
             $Email->subject('Your Certificate of Achievement');
 
             $Email->attachments(array(
@@ -371,8 +371,8 @@ class EnrollmentsController extends AppController {
         $core = $this->produce_common_certificate_parts($core, $data);
 
         // logos
-        $core->Image( 'http://scottambler.com/dac/app/webroot/img/DAC.jpg', 162,140,0,15);
-        $core->Image( 'http://scottambler.com/dac/app/webroot/img/td_logo.jpg', 225,165,0,15);
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/DAC.jpg', 152,130,0,15);
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/td_logo.jpg', 215,155,0,15);
 
         $core = $this->produce_third_part_signatures($core, $data);
 
@@ -386,8 +386,8 @@ class EnrollmentsController extends AppController {
         $core = $this->produce_common_certificate_parts($core, $data);
 
         // logos
-        $core->Image( 'http://scottambler.com/dac/app/webroot/img/DAC.jpg', 162,140,0,15);
-        $core->Image( 'http://scottambler.com/dac/app/webroot/img/SAA_logo.jpg', 184,165,0,15);
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/DAC.jpg', 152,130,0,15);
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/SAA_logo.jpg', 174,155,0,15);
 
         $core = $this->produce_third_part_signatures($core, $data);
 
@@ -401,8 +401,8 @@ class EnrollmentsController extends AppController {
         $core = $this->produce_common_certificate_parts($core, $data);
 
         // logos
-        $core->Image( 'http://scottambler.com/dac/app/webroot/img/DAC.jpg', 162,140,0,15);
-        $core->Image( 'http://scottambler.com/dac/app/webroot/img/IndigoCube_Logo.jpg', 214,165,0,18);
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/DAC.jpg', 152,130,0,15);
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/IndigoCube_Logo.jpg', 204,155,0,18);
 
         $core = $this->produce_third_part_signatures($core, $data);
 
@@ -413,26 +413,26 @@ class EnrollmentsController extends AppController {
 
     private function produce_third_part_signatures($core, $data){
         // Ambler signature
-        $core->Image( 'http://scottambler.com/dac/app/webroot/img/AmblerSignature.jpg', 30,138,40);
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/AmblerSignature.jpg', 40,128,40);
         $core->SetLineWidth(.2);
-        $core->Line(30,150,70,150);
+        $core->Line(40,140,80,140);
         $core->SetFont('Calibri', '', 11);
-        $core->SetXY(30,152);
+        $core->SetXY(40,142);
         $core->Cell(40, 5, 'Scott Ambler');
 
         // Lines signature
-        $core->Image( 'http://scottambler.com/dac/app/webroot/img/LinesSignature.jpg', 30,170,40);
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/LinesSignature.jpg', 40,160,40);
         $core->SetLineWidth(.2);
-        $core->Line(30,182,70,182);
+        $core->Line(40,172,80,172);
         $core->SetFont('Calibri', '', 11);
-        $core->SetXY(30,184);
+        $core->SetXY(40,174);
         $core->Cell(40, 5, 'Mark Lines');
 
         // date
         $core->SetFont('Calibri', '', 12);
-        $core->SetXY(120,176);
+        $core->SetXY(120,166);
         $core->Cell(40, 5, $data['Date'], 0, 0, 'C');
-        $core->Line(120,182,160,182);
+        $core->Line(120,172,160,172);
 
         return $core;
 
@@ -450,12 +450,12 @@ class EnrollmentsController extends AppController {
         $core->SetDrawColor(0, 118, 163);
         $core->Rect(10,10,259,197, 'D');
         $core->SetLineWidth(.2);
-        $core->Rect(11,11,257,195, 'D');
+        $core->Rect(25,25,227,165, 'D');
 
         $core->SetDrawColor(0);
 
         $core->SetFont('Calibri','',30);
-        $core->SetXY(80, 20);
+        $core->SetXY(80, 30);
         $core->Cell(120, 20, 'Certificate of Achievement', 0, 0,'C');
 
         $core->SetTextColor(0,118,163);
@@ -477,7 +477,7 @@ class EnrollmentsController extends AppController {
         $core->SetFont('Calibri','',12);
         if($data['PDUs']){
             $core->SetXY(80, 115);
-            $core->Cell(120,10, $data['PDUs'].' PDUs Awarded', 0, 0, 'C');
+            $core->Cell(120,10, $data['PDUs'].' Training Hours', 0, 0, 'C');
         }
 
         return $core;
@@ -488,29 +488,29 @@ class EnrollmentsController extends AppController {
         $core = new FPDF('L', 'mm', 'Letter');
         $core = $this->produce_common_certificate_parts($core, $data);
         // logo
-        $core->Image( 'http://scottambler.com/dac/app/webroot/img/DAC.jpg', 90,140,100);
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/DAC.jpg', 90,130,100);
 
         // Ambler signature
-        $core->Image( 'http://scottambler.com/dac/app/webroot/img/AmblerSignature.jpg', 30,170,40);
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/AmblerSignature.jpg', 40,160,40);
         $core->SetLineWidth(.2);
         $core->SetFont('Calibri', '', 11);
-        $core->Line(30,182,70,182);
-        $core->SetXY(30,185);
+        $core->Line(40,172,80,172);
+        $core->SetXY(40,175);
         $core->Cell(40, 5, 'Scott Ambler');
 
         // Lines signature
-        $core->Image( 'http://scottambler.com/dac/app/webroot/img/LinesSignature.jpg', 200,170,40);
+        $core->Image( 'http://scottambler.com/dac/app/webroot/img/LinesSignature.jpg', 190,160,40);
         $core->SetLineWidth(.2);
         $core->SetFont('Calibri', '', 11);
-        $core->Line(200,182,240,182);
-        $core->SetXY(200,185);
+        $core->Line(190,172,230,172);
+        $core->SetXY(190,175);
         $core->Cell(40, 5, 'Mark Lines');
 
         // date
         $core->SetFont('Calibri', '', 12);
-        $core->SetXY(120,176);
+        $core->SetXY(120,166);
         $core->Cell(40, 5, $data['Date'], 0, 0, 'C');
-        $core->Line(120,182,160,182);
+        $core->Line(120,172,160,172);
 
         $contents = $core->Output('','S');
         return $contents;
@@ -652,24 +652,27 @@ class EnrollmentsController extends AppController {
         $formatted_date_string = '';
         // simple format for a single day course
         if($t1 == $t2){
-            $formatted_date_string = date('j F Y', $t1);
+            $formatted_date_string = date('F j, Y', $t1);
         }else {
             // get date and time information from timestamps
             $d1 = getdate($t1);
             $d2 = getdate($t2);
             // three possible formats for the first date
-            $long = "j F Y";
-            $medium = "j F";
-            $short = "j";
+            $long = "F j, Y";
+            $medium = "F j";
+            $short = "j, Y";
             // decide which format to use
             if ($d1["year"] != $d2["year"]) {
                 $first_format = $long;
+                $second_format = $long;
             } elseif ($d1["mon"] != $d2["mon"]) {
                 $first_format = $medium;
+                $second_format = $long;
             } else {
-                $first_format = $short;
+                $first_format = $medium;
+                $second_format = $short;
             }
-            $formatted_date_string = date($first_format, $t1).'-'.date($long, $t2);
+            $formatted_date_string = date($first_format, $t1).'-'.date($second_format, $t2);
         }
         return $formatted_date_string;
     }
