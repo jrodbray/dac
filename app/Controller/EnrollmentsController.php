@@ -448,7 +448,7 @@ class EnrollmentsController extends AppController {
         $core->SetFont('Arial','',16);
         $core->SetLineWidth(1);
         $core->SetDrawColor(0, 118, 163);
-        $core->Rect(10,10,259,197, 'D');
+        $core->Rect(24,24,229,167, 'D');
         $core->SetLineWidth(.2);
         $core->Rect(25,25,227,165, 'D');
 
