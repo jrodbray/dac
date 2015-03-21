@@ -27,7 +27,7 @@ for($loop=0; $loop<20; $loop++) {
         $core->SetDrawColor(0, 118, 163);
         $core->Rect(10, 62, 260, 130, 'D');
         $core->Line(70, 62, 70, 192);
-        $core->Line(210, 62, 210, 192);
+        $core->Line(190, 62, 190, 192);
 
 
         $core->Image('http://scottambler.com/dac/app/webroot/img/DAC.jpg', 10, 10, 100);
@@ -45,7 +45,7 @@ for($loop=0; $loop<20; $loop++) {
 
         $core->SetXY(20, 38);
         $core->Cell(20, 5, 'Instructor:', 0, 0, 'R');
-        $core->Cell(20, 5, $courseOffering[0]['InstructingPerson']['last_name'], 0, 0, 'L');
+        $core->Cell(20, 5, $courseOffering[0]['InstructingPerson']['first_name'].' '.$courseOffering[0]['InstructingPerson']['last_name'], 0, 0, 'L');
 
         $core->SetXY(20, 42);
         $core->Cell(20, 5, 'Date:', 0, 0, 'R');
@@ -55,13 +55,13 @@ for($loop=0; $loop<20; $loop++) {
         $core->SetXY(10, 52);
         $core->Cell(60, 5, 'Name', 0, 0, 'C');
         $core->SetXY(70, 52);
-        $core->Cell(140, 5, 'Name on Certificate', 0, 0, 'C');
+        $core->Cell(120, 5, 'Name on Certificate', 0, 0, 'C');
         $core->SetXY(70, 56);
-        $core->Cell(140, 5, '(Check if OK, update legibly if required)', 0, 0, 'C');
-        $core->SetXY(210, 52);
-        $core->Cell(60, 5, 'E-mail', 0, 0, 'C');
-        $core->SetXY(210, 56);
-        $core->Cell(60, 5, '(to receive a certificate)', 0, 0, 'C');
+        $core->Cell(120, 5, '(Check if OK, update legibly if required)', 0, 0, 'C');
+        $core->SetXY(190, 52);
+        $core->Cell(80, 5, 'E-mail', 0, 0, 'C');
+        $core->SetXY(190, 56);
+        $core->Cell(80, 5, '(to receive a certificate)', 0, 0, 'C');
     }
 
     $core->SetFont('Calibri', '', 11);
@@ -75,8 +75,8 @@ for($loop=0; $loop<20; $loop++) {
         $core->SetXY(70, $rowCoordinate);
         $core->Cell(140, 5, '', 'B', 0, 'C');
 
-        $core->SetXY(210, $rowCoordinate);
-        $core->Cell(60, 5, $data['Person']['work_email'], 'B', 0, 'L');
+        $core->SetXY(190, $rowCoordinate);
+        $core->Cell(80, 5, $data['Person']['work_email'], 'B', 0, 'L');
 
     } else {
         // complete the form with empty rows
@@ -86,8 +86,8 @@ for($loop=0; $loop<20; $loop++) {
         $core->SetXY(70, $rowCoordinate);
         $core->Cell(140, 5, '', 'B', 0, 'C');
 
-        $core->SetXY(210, $rowCoordinate);
-        $core->Cell(60, 5, '', 'B', 0, 'L');
+        $core->SetXY(190, $rowCoordinate);
+        $core->Cell(80, 5, '', 'B', 0, 'L');
 
     }
 
@@ -98,8 +98,8 @@ for($loop=0; $loop<20; $loop++) {
         $core->Cell(59, 2, 'www.disciplinedagilecortium.org', 0, 0, 'L');
         $core->SetXY(70, 193);
         $core->Cell(139, 2, 'Calgary, Alberta, CANADA', 0, 0, 'C');
-        $core->SetXY(210, 193);
-        $core->Cell(60, 2, 'www.disciplinedagiledelivery.com', 0, 0, 'R');
+        $core->SetXY(190, 193);
+        $core->Cell(80, 2, 'www.disciplinedagiledelivery.com', 0, 0, 'R');
     }
 }
 
