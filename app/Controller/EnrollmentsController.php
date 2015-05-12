@@ -477,7 +477,10 @@ class EnrollmentsController extends AppController {
         $core->SetFont('Calibri','',12);
         if($data['PDUs']){
             $core->SetXY(80, 115);
-            $core->Cell(120,10, $data['PDUs'].' Training Hours', 0, 0, 'C');
+            $core->Cell(120,10, $data['PDUs'].' PDU/Contact Hours', 0, 0, 'C');
+            // REP number
+            $core->SetXY(80, 180);
+            $core->Cell(120, 5, 'R.E.P. 4195', 0, 0, 'C');
         }
 
         return $core;

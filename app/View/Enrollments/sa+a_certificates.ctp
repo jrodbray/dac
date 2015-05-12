@@ -49,12 +49,16 @@ foreach ($data_array as $data):
     $core->SetFont('Calibri','',12);
     if($data['PDUs']){
         $core->SetXY(80, 115);
-        $core->Cell(120,10, $data['PDUs'].' Training Hours', 0, 0, 'C');
+        $core->Cell(120,10, $data['PDUs'].' PDU/Contact Hours', 0, 0, 'C');
+        // REP number
+        $core->SetXY(80, 180);
+        $core->Cell(120, 5, 'R.E.P. 4195', 0, 0, 'C');
     }
 
     // logos
     $core->Image( 'http://scottambler.com/dac/app/webroot/img/DAC.jpg', 152,130,0,15);
     $core->Image( 'http://scottambler.com/dac/app/webroot/img/SAA_logo.jpg', 174,155,0,15);
+
 
     // signatures & date
     $core->Image( 'http://scottambler.com/dac/app/webroot/img/AmblerSignature.jpg', 40,128,40);
@@ -74,6 +78,7 @@ foreach ($data_array as $data):
     $core->SetXY(120,166);
     $core->Cell(40, 5, $data['Date'], 0, 0, 'C');
     $core->Line(120,172,160,172);
+
 
 endforeach;
 $core->Output('example_001.pdf', 'I');
