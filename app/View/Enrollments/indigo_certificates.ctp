@@ -50,10 +50,14 @@ foreach ($data_array as $data):
     $core->SetFont('Calibri','',12);
     if($data['PDUs']){
         $core->SetXY(80, 115);
-        $core->Cell(120,10, $data['PDUs'].' PDU/Contact Hours', 0, 0, 'C');
-        // REP number
-        $core->SetXY(80, 180);
-        $core->Cell(120, 5, 'R.E.P. 4195', 0, 0, 'C');
+        if($data['PMI']) {
+            $core->Cell(120, 10, $data['PDUs'] . ' PDU/Contact Hours', 0, 0, 'C');
+            // REP number
+            $core->SetXY(80, 180);
+            $core->Cell(120, 5, 'R.E.P. 4195', 0, 0, 'C');
+        }else{
+            $core->Cell(120, 10, $data['PDUs'] . ' Training Hours', 0, 0, 'C');
+        }
     }
 
     $core->Image( 'http://scottambler.com/dac/app/webroot/img/DAC.jpg', 152,130,0,15);

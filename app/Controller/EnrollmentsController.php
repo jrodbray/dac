@@ -277,6 +277,7 @@ class EnrollmentsController extends AppController {
                 $inner_array['Course2'] = '';
             }
             $inner_array['PDUs'] = $courseOffering[0]['Course']['PDUs'];
+            $inner_array['PMI'] = $courseOffering[0]['Course']['pmi_accredited'];
             $inner_array['Date'] = $this->format_certificate_date($courseOffering);
             $inner_array['email'] = $person['Person']['work_email'];
             $data_array[$data_array_index] = $inner_array;
@@ -477,10 +478,14 @@ class EnrollmentsController extends AppController {
         $core->SetFont('Calibri','',12);
         if($data['PDUs']){
             $core->SetXY(80, 115);
-            $core->Cell(120,10, $data['PDUs'].' PDU/Contact Hours', 0, 0, 'C');
-            // REP number
-            $core->SetXY(80, 180);
-            $core->Cell(120, 5, 'R.E.P. 4195', 0, 0, 'C');
+            if($data['PMI']) {
+                $core->Cell(120, 10, $data['PDUs'] . ' PDU/Contact Hours', 0, 0, 'C');
+                // REP number
+                $core->SetXY(80, 180);
+                $core->Cell(120, 5, 'R.E.P. 4195', 0, 0, 'C');
+            }else{
+                $core->Cell(120, 10, $data['PDUs'] . ' Training Hours', 0, 0, 'C');
+            }
         }
 
         return $core;
