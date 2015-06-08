@@ -155,11 +155,11 @@ $core->Line(10, 256, 206, 256);
 $core->SetFont('Calibri', '', 8);
 $core->SetTextColor(0, 118, 263);
 $core->SetXY(10, 257);
-$core->Cell(50, 2, 'disciplinedagilecortium.org', 0, 0, 'L');
+$core->Cell(50, 2, 'DisciplinedAgileConsortium.org', 0, 0, 'L');
 $core->SetXY(60, 257);
 $core->Cell(89, 2, 'Calgary, Alberta, CANADA', 0, 0, 'C');
 $core->SetXY(146, 257);
-$core->Cell(60, 2, 'disciplinedagiledelivery.com', 0, 0, 'R');
+$core->Cell(60, 2, 'DisciplinedAgileDelivery.com', 0, 0, 'R');
 
 
 

@@ -103,11 +103,11 @@ for($loop=0; $loop<20; $loop++) {
         $core->SetFont('Calibri', '', 8);
         $core->SetTextColor(0, 118, 263);
         $core->SetXY(10, 193);
-        $core->Cell(59, 2, 'disciplinedagilecortium.org', 0, 0, 'L');
+        $core->Cell(59, 2, 'DisciplinedAgileConsortium.org', 0, 0, 'L');
         $core->SetXY(70, 193);
         $core->Cell(139, 2, 'Calgary, Alberta, CANADA', 0, 0, 'C');
         $core->SetXY(190, 193);
-        $core->Cell(80, 2, 'disciplinedagiledelivery.com', 0, 0, 'R');
+        $core->Cell(80, 2, 'DisciplinedAgileDelivery.com', 0, 0, 'R');
     }
 }
 
