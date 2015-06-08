@@ -45,7 +45,7 @@ class EnrollmentsController extends AppController {
     const LINES_SIGNATURE_JPG = 'http://scottambler.com/dac/app/webroot/img/LinesSignature.jpg';
 
     const TD_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/td_logo.jpg';
-    const SAA_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/SAA_logo.jpg';
+    const SAA_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/Scott_Ambler+Associates_Logo_Large.jpg';
     const INDIGO_CUBE_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/IndigoCube_Logo.jpg';
 
     public function detail() {
