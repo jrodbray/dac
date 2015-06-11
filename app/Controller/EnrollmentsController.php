@@ -379,7 +379,7 @@ class EnrollmentsController extends AppController {
         $core = $this->produce_common_certificate_parts($core, $data);
 
         // logos
-        $core->Image( self::DAC_LOGO, 152,130,0,15);
+        $core->Image( self::DAC_LOGO, 165,130,0,15);
         $core->Image( self::TD_LOGO_JPG, 215,155,0,15);
 
         $core = $this->produce_third_part_signatures($core, $data);
@@ -394,7 +394,7 @@ class EnrollmentsController extends AppController {
         $core = $this->produce_common_certificate_parts($core, $data);
 
         // logos
-        $core->Image( self::DAC_LOGO, 152,130,0,15);
+        $core->Image( self::DAC_LOGO, 165,130,0,15);
         $core->Image( self::SAA_LOGO_JPG, 174,155,0,15);
 
         $core = $this->produce_third_part_signatures($core, $data);
@@ -409,7 +409,7 @@ class EnrollmentsController extends AppController {
         $core = $this->produce_common_certificate_parts($core, $data);
 
         // logos
-        $core->Image( self::DAC_LOGO, 152,130,0,15);
+        $core->Image( self::DAC_LOGO, 165,130,0,15);
         $core->Image( self::INDIGO_CUBE_LOGO_JPG, 204,155,0,18);
 
         $core = $this->produce_third_part_signatures($core, $data);

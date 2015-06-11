@@ -60,7 +60,7 @@ foreach ($data_array as $data):
         }
     }
 
-    $core->Image( 'http://scottambler.com/dac/app/webroot/img/Disciplined_Agile_Consortium_Logo_clear_no_shadow.png', 152,130,0,15);
+    $core->Image( 'http://scottambler.com/dac/app/webroot/img/Disciplined_Agile_Consortium_Logo_clear_no_shadow.png', 165,130,0,15);
     $core->Image( 'http://scottambler.com/dac/app/webroot/img/IndigoCube_Logo.jpg', 204,155,0,18);
 
     // signatures & date
