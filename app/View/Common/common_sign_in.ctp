@@ -10,6 +10,8 @@ App::import('Vendor', 'Fpdf', array('file' => 'fpdf/fpdf.php'));
 $courseOffering = $this->Session->read('course_offering');
 //echo print_r($courseOffering);
 
+$numberOfDays = $courseOffering[0]['Course']['typical_length_in_days'];
+
 $core = new FPDF('L', 'mm', 'Letter');
 
 $core->AddFont('Calibri','','calibri.php');
@@ -27,8 +29,26 @@ for($loop=0; $loop<20; $loop++) {
         $core->SetDrawColor(0, 118, 163);
         $core->Rect(10, 62, 260, 130, 'D');
         $core->Line(70, 62, 70, 192);
-        $core->Line(190, 62, 190, 192);
+        $core->Line(140, 62, 140, 192);
+        $core->Line(200, 62, 200, 192);
 
+//  add sign-in columns
+        $core->SetTextColor(0, 0, 0);
+        $core->SetFont('Calibri', 'B', 10);
+        $numberOfLines = $numberOfDays;
+        $colWidth = (70 / $numberOfLines);
+        $dayCounter = 0;
+        for($lineX = 200; $lineX<270; ) {
+            $dayCounter++;
+            $core->SetXY($lineX, 52);
+            $core->Cell($colWidth, 5, 'Sign',0,0,'C');
+            if($numberOfLines != 1) {
+                $core->SetXY($lineX, 56);
+                $core->Cell($colWidth, 5, 'Day '.$dayCounter, 0, 0, 'C');
+            }
+            $lineX = $lineX + $colWidth;
+            $core->Line($lineX, 62, $lineX, 192);
+        }
 
         $core->Image('http://scottambler.com/dac/app/webroot/img/Disciplined_Agile_Consortium_Logo_clear_no_shadow.png', 10, 10, 100);
         $this->fetch('content');
@@ -63,13 +83,13 @@ for($loop=0; $loop<20; $loop++) {
         $core->SetXY(10, 52);
         $core->Cell(60, 5, 'Name', 0, 0, 'C');
         $core->SetXY(70, 52);
-        $core->Cell(120, 5, 'Name on Certificate', 0, 0, 'C');
+        $core->Cell(70, 5, 'Name on Certificate', 0, 0, 'C');
         $core->SetXY(70, 56);
-        $core->Cell(120, 5, '(Check if OK, update legibly if required)', 0, 0, 'C');
-        $core->SetXY(190, 52);
-        $core->Cell(80, 5, 'E-mail', 0, 0, 'C');
-        $core->SetXY(190, 56);
-        $core->Cell(80, 5, '(to receive a certificate)', 0, 0, 'C');
+        $core->Cell(70, 5, '(Check if OK, update legibly if required)', 0, 0, 'C');
+        $core->SetXY(140, 52);
+        $core->Cell(60, 5, 'E-mail', 0, 0, 'C');
+        $core->SetXY(140, 56);
+        $core->Cell(60, 5, '(to receive a certificate)', 0, 0, 'C');
     }
 
     $core->SetFont('Calibri', '', 11);
@@ -81,10 +101,13 @@ for($loop=0; $loop<20; $loop++) {
         $core->Cell(60, 5, ' ' . ($loop+1) . '. ' . $data['Enrollment']['name_on_certificate'], 'B', 0, 'L');
 
         $core->SetXY(70, $rowCoordinate);
-        $core->Cell(120, 5, '', 'B', 0, 'C');
+        $core->Cell(70, 5, '', 'B', 0, 'C');
 
-        $core->SetXY(190, $rowCoordinate);
-        $core->Cell(80, 5, $data['Person']['work_email'], 'B', 0, 'L');
+        $core->SetXY(140, $rowCoordinate);
+        $core->Cell(60, 5, $data['Person']['work_email'], 'B', 0, 'L');
+
+        $core->SetXY(200, $rowCoordinate);
+        $core->Cell(70, 5, '', 'B', 0, 'L');
 
     } else {
         // complete the form with empty rows
@@ -92,10 +115,13 @@ for($loop=0; $loop<20; $loop++) {
         $core->Cell(60, 5, ' ' . ($loop+1) . '. ', 'B', 0, 'L');
 
         $core->SetXY(70, $rowCoordinate);
-        $core->Cell(120, 5, '', 'B', 0, 'C');
+        $core->Cell(70, 5, '', 'B', 0, 'C');
 
-        $core->SetXY(190, $rowCoordinate);
-        $core->Cell(80, 5, '', 'B', 0, 'L');
+        $core->SetXY(140, $rowCoordinate);
+        $core->Cell(60, 5, '', 'B', 0, 'L');
+
+        $core->SetXY(200, $rowCoordinate);
+        $core->Cell(70, 5, '', 'B', 0, 'L');
 
     }
 
