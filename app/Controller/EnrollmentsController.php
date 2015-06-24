@@ -170,8 +170,22 @@ class EnrollmentsController extends AppController {
 
         $this->response->type("application/pdf");
         $this->layout = 'defaultpdf'; //this will use the defaultpdf.ctp layout
-        $this->render(strtolower($courseOffering[0]['Entity']['code']).'_feedback_form');
-        //$this->render('indigo_feedback_form');
+        // render "branded" feedback forms
+        $branding = $courseOffering[0]['Entity']['code'];
+        switch ($branding) {
+            case 'TDFG':
+                $this->render('tdfg_feedback_form');
+                break;
+            case 'SA+A':
+                $this->render('sa+a_feedback_form');
+                break;
+            case 'Indigo':
+                $this->render('indigo_feedback_form');
+                break;
+            default:
+                $this->render('dac_feedback_form');
+        }
+        //$this->render(strtolower($courseOffering[0]['Entity']['code']).'_feedback_form');
     }
 
     public function class_list(){
@@ -233,7 +247,22 @@ class EnrollmentsController extends AppController {
         $this->response->type("application/pdf");
         $this->layout = 'defaultpdf'; //this will use the defaultpdf.ctp layout
         $this->set('data_array', $data_array);
-        $this->render(strtolower($courseOffering[0]['Entity']['code']).'_sign_in_sheet');
+        // render "branded" sign-in sheets
+        $branding = $courseOffering[0]['Entity']['code'];
+        switch ($branding) {
+            case 'TDFG':
+                $this->render('tdfg_sign_in_sheet');
+                break;
+            case 'SA+A':
+                $this->render('sa+a_sign_in_sheet');
+                break;
+            case 'Indigo':
+                $this->render('indigo_sign_in_sheet');
+                break;
+            default:
+                $this->render('dac_sign_in_sheet');
+        }
+        //$this->render(strtolower($courseOffering[0]['Entity']['code']).'_sign_in_sheet');
     }
 
 
@@ -353,8 +382,8 @@ class EnrollmentsController extends AppController {
             $contents = $this->build_certificate($certificate_format, $data);
             $Email = new CakeEmail('smtp');
             $Email->template('certificate', 'formal')->emailFormat('html');
-            //$Email->to('rodbray@yahoo.com');    // dev
-            $Email->to('admin@disciplinedagileconsortium.org');    // prod testing
+            $Email->to('rodbray@yahoo.com');    // dev
+            //$Email->to('admin@disciplinedagileconsortium.org');    // prod testing
             $Email->subject('Your Certificate of Achievement');
 
             $Email->attachments(array(
