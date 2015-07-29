@@ -20,12 +20,12 @@ class Entity extends AppModel {
             'required' => true,
             'allowEmpty' => false,
             'message' => 'Code is required.'
-        ),
+/*        ),
         'phone' => array(
-            'rule' => array('phone', null, 'us'),
+            'rule' => array('phone', null, 'all'),
             'required' => false,
             'allowEmpty' => true,
-            'message' => 'Please supply a valid phone number.'
+            'message' => 'Please supply a valid phone number.' */
         )
     );
 
