@@ -47,6 +47,7 @@ class EnrollmentsController extends AppController {
     const TD_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/td_logo.jpg';
     const SAA_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/Scott_Ambler+Associates_Logo_Large.jpg';
     const INDIGO_CUBE_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/IndigoCube_Logo.jpg';
+    const IZENBRIDGE_LOGO_PNG = "http://scottambler.com/dac/app/webroot/img/logo_iZenBridge_Saket.png";
 
     public function detail() {
         $conditions = array('conditions' => array('person_id' => 1));
@@ -182,6 +183,9 @@ class EnrollmentsController extends AppController {
             case 'Indigo':
                 $this->render('indigo_feedback_form');
                 break;
+            case 'iZB':
+                $this->render('izb_feedback_form');
+                break;
             default:
                 $this->render('dac_feedback_form');
         }
@@ -258,6 +262,9 @@ class EnrollmentsController extends AppController {
                 break;
             case 'Indigo':
                 $this->render('indigo_sign_in_sheet');
+                break;
+            case 'iZB':
+                $this->render('izb_sign_in_sheet');
                 break;
             default:
                 $this->render('dac_sign_in_sheet');
@@ -362,6 +369,9 @@ class EnrollmentsController extends AppController {
             case 'Indigo':
                 $contents = $this->produce_Indigo_certificate($data);
                 break;
+            case 'iZB':
+                $contents = $this->produce_iZenBridge_certificate($data);
+                break;
             default:
                 $contents = $this->produce_DAC_certificate($data);
         }
@@ -446,6 +456,21 @@ class EnrollmentsController extends AppController {
         $contents = $core->Output('','S');
         return $contents;
     }
+
+    private function produce_iZenBridge_certificate($data){
+        $core = new FPDF('L', 'mm', 'Letter');
+        $core = $this->produce_common_certificate_parts($core, $data);
+
+        // logos
+        $core->Image( self::DAC_LOGO, 165,130,0,15);
+        $core->Image( self::IZENBRIDGE_LOGO_PNG, 198,163,0,10);
+
+        $core = $this->produce_third_part_signatures($core, $data);
+
+        $contents = $core->Output('','S');
+        return $contents;
+    }
+
 
 
     private function produce_third_part_signatures($core, $data){
