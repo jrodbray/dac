@@ -18,10 +18,15 @@ $core->AddFont('Calibri','','calibri.php');
 $core->AddFont('Calibri','B','calibrib.php');
 $core->AddFont('Calibri','I','calibrii.php');
 
+function roundUpToAny($n,$x=5) {
+    return (ceil($n)%$x === 0) ? ceil($n) : round(($n+$x/2)/$x)*$x;
+}
 
-for($loop=0; $loop<20; $loop++) {
+$end_of_loop = max( array(20, roundUpToAny(sizeof($data_array), 10) ) );
 
-    if ($loop == 0 || $loop == 10) {
+for($loop=0; $loop<$end_of_loop; $loop++) {
+
+    if ($loop == 0 || $loop == 10 || $loop == 20) {
         $core->AddPage();
 
         $core->SetFont('Arial', '', 16);
@@ -125,7 +130,7 @@ for($loop=0; $loop<20; $loop++) {
 
     }
 
-    if($loop == 9 || $loop == 19) {
+    if($loop == 9 || $loop == 19 || $loop == 29) {
         $core->SetFont('Calibri', '', 8);
         $core->SetTextColor(0, 118, 263);
         $core->SetXY(10, 193);
