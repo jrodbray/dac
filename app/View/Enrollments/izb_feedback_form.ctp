@@ -7,7 +7,7 @@
  */
 $this->extend('/Common/common_feedback');
 
-$this->set('logo', 'http://scottambler.com/dac/app/webroot/img/logo_iZenBridge_Saket.png' );
+$this->set('logo', $_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/logo_iZenBridge_Saket.png' );
 $this->set('x',170);
 $this->set('y',12);
 $this->set('w',0);

@@ -7,7 +7,7 @@
  */
 $this->extend('/Common/common_feedback');
 
-$this->set('logo', 'http://scottambler.com/dac/app/webroot/img/td_logo.jpg' );
+$this->set('logo', $_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/td_logo.jpg' );
 $this->set('x',180);
 $this->set('y',12);
 $this->set('w',0);

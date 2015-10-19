@@ -7,7 +7,7 @@
  */
 $this->extend('/Common/common_sign_in');
 
-$this->set('logo', 'http://scottambler.com/dac/app/webroot/img/td_logo.jpg' );
+$this->set('logo', $_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/td_logo.jpg' );
 $this->set('x',245);
 $this->set('y',12);
 $this->set('w',0);

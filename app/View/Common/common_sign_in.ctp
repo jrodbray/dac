@@ -55,7 +55,7 @@ for($loop=0; $loop<$end_of_loop; $loop++) {
             $core->Line($lineX, 62, $lineX, 192);
         }
 
-        $core->Image('http://scottambler.com/dac/app/webroot/img/Disciplined_Agile_Consortium_Logo_clear_no_shadow.png', 10, 10, 100);
+        $core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/Disciplined_Agile_Consortium_Logo_clear_no_shadow.png', 10, 10, 100);
         $this->fetch('content');
         $logo = $this->get('logo');
         if($logo) {

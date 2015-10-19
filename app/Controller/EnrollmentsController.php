@@ -40,14 +40,21 @@ class EnrollmentsController extends AppController {
     // global variable
     private $curr_max_time = 0;
 
-    const DAC_LOGO = 'http://scottambler.com/dac/app/webroot/img/Disciplined_Agile_Consortium_Logo_clear_no_shadow.png';
-    const AMBLER_SIGNATURE_JPG = 'http://scottambler.com/dac/app/webroot/img/AmblerSignature.jpg';
-    const LINES_SIGNATURE_JPG = 'http://scottambler.com/dac/app/webroot/img/LinesSignature.jpg';
+    //const DAC_LOGO = 'http://scottambler.com/dac/app/webroot/img/Disciplined_Agile_Consortium_Logo_clear_no_shadow.png';
+    const DAC_LOGO = '/dac/app/webroot/img/Disciplined_Agile_Consortium_Logo_clear_no_shadow.png';
+    //const AMBLER_SIGNATURE_JPG = 'http://scottambler.com/dac/app/webroot/img/AmblerSignature.jpg';
+    const AMBLER_SIGNATURE_JPG = '/dac/app/webroot/img/AmblerSignature.jpg';
+    //const LINES_SIGNATURE_JPG = 'http://scottambler.com/dac/app/webroot/img/LinesSignature.jpg';
+    const LINES_SIGNATURE_JPG = '/dac/app/webroot/img/LinesSignature.jpg';
 
-    const TD_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/td_logo.jpg';
-    const SAA_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/Scott_Ambler+Associates_Logo_Large.jpg';
-    const INDIGO_CUBE_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/IndigoCube_Logo.jpg';
-    const IZENBRIDGE_LOGO_PNG = "http://scottambler.com/dac/app/webroot/img/logo_iZenBridge_Saket.png";
+    //const TD_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/td_logo.jpg';
+    const TD_LOGO_JPG = '/dac/app/webroot/img/td_logo.jpg';
+    //const SAA_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/Scott_Ambler+Associates_Logo_Large.jpg';
+    const SAA_LOGO_JPG = '/dac/app/webroot/img/Scott_Ambler+Associates_Logo_Large.jpg';
+    //const INDIGO_CUBE_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/IndigoCube_Logo.jpg';
+    const INDIGO_CUBE_LOGO_JPG = '/dac/app/webroot/img/IndigoCube_Logo.jpg';
+    //const IZENBRIDGE_LOGO_PNG = "http://scottambler.com/dac/app/webroot/img/logo_iZenBridge_Saket.png";
+    const IZENBRIDGE_LOGO_PNG = '/dac/app/webroot/img/logo_iZenBridge_Saket.png';
 
     public function detail() {
         $conditions = array('conditions' => array('person_id' => 1));
@@ -418,8 +425,8 @@ class EnrollmentsController extends AppController {
         $core = $this->produce_common_certificate_parts($core, $data);
 
         // logos
-        $core->Image( self::DAC_LOGO, 165,130,0,15);
-        $core->Image( self::TD_LOGO_JPG, 215,155,0,15);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::DAC_LOGO, 165,130,0,15);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::TD_LOGO_JPG, 215,155,0,15);
 
         $core = $this->produce_third_part_signatures($core, $data);
 
@@ -433,8 +440,8 @@ class EnrollmentsController extends AppController {
         $core = $this->produce_common_certificate_parts($core, $data);
 
         // logos
-        $core->Image( self::DAC_LOGO, 165,130,0,15);
-        $core->Image( self::SAA_LOGO_JPG, 174,155,0,15);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::DAC_LOGO, 165,130,0,15);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::SAA_LOGO_JPG, 174,155,0,15);
 
         $core = $this->produce_third_part_signatures($core, $data);
 
@@ -448,8 +455,8 @@ class EnrollmentsController extends AppController {
         $core = $this->produce_common_certificate_parts($core, $data);
 
         // logos
-        $core->Image( self::DAC_LOGO, 165,130,0,15);
-        $core->Image( self::INDIGO_CUBE_LOGO_JPG, 204,155,0,18);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::DAC_LOGO, 165,130,0,15);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::INDIGO_CUBE_LOGO_JPG, 204,155,0,18);
 
         $core = $this->produce_third_part_signatures($core, $data);
 
@@ -462,8 +469,8 @@ class EnrollmentsController extends AppController {
         $core = $this->produce_common_certificate_parts($core, $data);
 
         // logos
-        $core->Image( self::DAC_LOGO, 165,130,0,15);
-        $core->Image( self::IZENBRIDGE_LOGO_PNG, 198,163,0,10);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::DAC_LOGO, 165,130,0,15);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::IZENBRIDGE_LOGO_PNG, 198,163,0,10);
 
         $core = $this->produce_third_part_signatures($core, $data);
 
@@ -475,7 +482,7 @@ class EnrollmentsController extends AppController {
 
     private function produce_third_part_signatures($core, $data){
         // Ambler signature
-        $core->Image( self::AMBLER_SIGNATURE_JPG, 40,128,40);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::AMBLER_SIGNATURE_JPG, 40,128,40);
         $core->SetLineWidth(.2);
         $core->Line(40,140,80,140);
         $core->SetFont('Calibri', '', 11);
@@ -483,7 +490,7 @@ class EnrollmentsController extends AppController {
         $core->Cell(40, 5, 'Scott Ambler');
 
         // Lines signature
-        $core->Image( self::LINES_SIGNATURE_JPG, 40,160,40);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::LINES_SIGNATURE_JPG, 40,160,40);
         $core->SetLineWidth(.2);
         $core->Line(40,172,80,172);
         $core->SetFont('Calibri', '', 11);
@@ -557,10 +564,10 @@ class EnrollmentsController extends AppController {
         $core = new FPDF('L', 'mm', 'Letter');
         $core = $this->produce_common_certificate_parts($core, $data);
         // logo
-        $core->Image( self::DAC_LOGO, 90,130,100);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::DAC_LOGO, 90,130,100);
 
         // Ambler signature
-        $core->Image( self::AMBLER_SIGNATURE_JPG, 40,160,40);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::AMBLER_SIGNATURE_JPG, 40,160,40);
         $core->SetLineWidth(.2);
         $core->SetFont('Calibri', '', 11);
         $core->Line(40,172,80,172);
@@ -568,7 +575,7 @@ class EnrollmentsController extends AppController {
         $core->Cell(40, 5, 'Scott Ambler');
 
         // Lines signature
-        $core->Image( self::LINES_SIGNATURE_JPG, 190,160,40);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::LINES_SIGNATURE_JPG, 190,160,40);
         $core->SetLineWidth(.2);
         $core->SetFont('Calibri', '', 11);
         $core->Line(190,172,230,172);
