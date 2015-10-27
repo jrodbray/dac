@@ -26,7 +26,7 @@ $end_of_loop = max( array(20, roundUpToAny(sizeof($data_array), 10) ) );
 
 for($loop=0; $loop<$end_of_loop; $loop++) {
 
-    if ($loop == 0 || $loop == 10 || $loop == 20) {
+    if ($loop == 0 || $loop == 10 || $loop == 20 || $loop == 30 || $loop == 40) {
         $core->AddPage();
 
         $core->SetFont('Arial', '', 16);
