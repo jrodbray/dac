@@ -72,7 +72,7 @@ $core->Line(10, 65, 206, 65);
 
 $core->SetFont('Calibri', 'B', 12);
 $core->SetXY(15, 68);
-$core->Cell(75, 5, 'Please rate the following Course aspects:', 0, 0, 'L');
+$core->Cell(75, 5, 'Please rate the following workshop aspects:', 0, 0, 'L');
 $core->SetXY(120, 68);
 $core->Cell(85, 5, '1=Poor to 5=Excellent', 0, 0, 'C');
 $core->Line(10, 74, 206, 74);
@@ -97,7 +97,7 @@ $core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number5
 $core->Line(10, 95, 206, 95);
 
 $core->SetXY(15, 98);
-$core->Cell(75, 5, 'Scope of Content', 0, 0, 'L');
+$core->Cell(75, 5, 'How would you rate this session overall?', 0, 0, 'L');
 $core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number1.png', 140, 98, 4);
 $core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number2.png', 150, 98, 4);
 $core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number3.png', 160, 98, 4);
@@ -106,50 +106,18 @@ $core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number5
 $core->Line(10, 105, 206, 105);
 
 $core->SetXY(15, 108);
-$core->Cell(75, 5, 'Depth of Content', 0, 0, 'L');
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number1.png', 140, 108, 4);
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number2.png', 150, 108, 4);
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number3.png', 160, 108, 4);
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number4.png', 170, 108, 4);
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number5.png', 180, 108, 4);
-$core->Line(10, 115, 206, 115);
-
-$core->SetXY(15, 118);
-$core->Cell(75, 5, 'Applicability of Content', 0, 0, 'L');
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number1.png', 140, 118, 4);
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number2.png', 150, 118, 4);
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number3.png', 160, 118, 4);
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number4.png', 170, 118, 4);
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number5.png', 180, 118, 4);
-$core->Line(10, 125, 206, 125);
-
-$core->SetXY(15, 128);
-$core->Cell(75, 5, 'Slideware', 0, 0, 'L');
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number1.png', 140, 128, 4);
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number2.png', 150, 128, 4);
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number3.png', 160, 128, 4);
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number4.png', 170, 128, 4);
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number5.png', 180, 128, 4);
-$core->Line(10, 135, 206, 135);
-
-$core->SetXY(15, 138);
-$core->Cell(75, 5, 'How would you rate this session overall?', 0, 0, 'L');
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number1.png', 140, 138, 4);
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number2.png', 150, 138, 4);
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number3.png', 160, 138, 4);
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number4.png', 170, 138, 4);
-$core->Image($_SERVER['DOCUMENT_ROOT'].'/dac/app/webroot/img/ico/PNGs/24/number5.png', 180, 138, 4);
-$core->Line(10, 145, 206, 145);
-
-$core->SetXY(15, 148);
 $core->Cell(75, 5, 'Do you have positive comments that you would like to share?', 0, 0, 'L');
 
-$core->SetXY(15, 188);
+$core->SetXY(15, 148);
 $core->Cell(75, 5, 'Can we quote you?     Yes     No', 0, 0, 'L');
-$core->Line(10, 195, 206, 195);
+$core->Line(10, 155, 206, 155);
 
-$core->SetXY(15, 198);
+$core->SetXY(15, 158);
 $core->Cell(75, 5, 'How would you improve this workshop?', 0, 0, 'L');
+$core->Line(10, 205, 206, 205);
+
+$core->SetXY(15, 208);
+$core->Cell(75, 5, 'Were there any topics you felt were missed by this workshop?', 0, 0, 'L');
 
 $core->Line(10, 256, 206, 256);
 $core->SetFont('Calibri', '', 8);

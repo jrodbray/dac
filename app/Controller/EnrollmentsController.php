@@ -49,12 +49,22 @@ class EnrollmentsController extends AppController {
 
     //const TD_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/td_logo.jpg';
     const TD_LOGO_JPG = '/dac/app/webroot/img/td_logo.jpg';
-    //const SAA_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/Scott_Ambler+Associates_Logo_Large.jpg';
-    const SAA_LOGO_JPG = '/dac/app/webroot/img/Scott_Ambler+Associates_Logo_Large.jpg';
+    //const SAA_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/Scott_Ambler+Associates_Logo-Vector-2016_800X249.jpg';
+    const SAA_LOGO_JPG = '/dac/app/webroot/img/Scott_Ambler+Associates_Logo-Vector-2016_800X249.jpg';
     //const INDIGO_CUBE_LOGO_JPG = 'http://scottambler.com/dac/app/webroot/img/IndigoCube_Logo.jpg';
     const INDIGO_CUBE_LOGO_JPG = '/dac/app/webroot/img/IndigoCube_Logo.jpg';
     //const IZENBRIDGE_LOGO_PNG = "http://scottambler.com/dac/app/webroot/img/logo_iZenBridge_Saket.png";
     const IZENBRIDGE_LOGO_PNG = '/dac/app/webroot/img/logo_iZenBridge_Saket.png';
+    //const AWA_LOGO_PNG = "http://scottambler.com/dac/app/webroot/img/adventureswithagile-dad.png";
+    const AWA_LOGO_PNG = '/dac/app/webroot/img/adventureswithagile-dad.png';
+    //const AGILE_TRAINING_LOGO_PNG = "http://scottambler.com/dac/app/webroot/img/Agile_training.png";
+    const AGILE_TRAINING_LOGO_PNG = '/dac/app/webroot/img/Agile_training.png';
+    //const AGILE_TRAINING_LOGO_PNG = "http://scottambler.com/dac/app/webroot/img/KH_Logo.jpg";
+    const KNOWLEDGE_HUT_LOGO_JPG = '/dac/app/webroot/img/KH_Logo.jpg';
+    //const AGILE_TRAINING_LOGO_PNG = "http://scottambler.com/dac/app/webroot/img/PMG_Logo.png";
+    const PMG_LOGO_PNG = '/dac/app/webroot/img/PMG_Logo.png';
+    //const AGILE_TRAINING_LOGO_PNG = "http://scottambler.com/dac/app/webroot/img/DT_Logo.png";
+    const DIGITAL_TANGO_LOGO_PNG = '/dac/app/webroot/img/DT_Logo.png';
 
     public function detail() {
         $conditions = array('conditions' => array('person_id' => 1));
@@ -193,6 +203,21 @@ class EnrollmentsController extends AppController {
             case 'iZB':
                 $this->render('izb_feedback_form');
                 break;
+            case 'AWA':
+                $this->render('awa_feedback_form');
+                break;
+            case 'VTM':
+                $this->render('a1_feedback_form');
+                break;
+            case 'DT':
+                $this->render('dt_feedback_form');
+                break;
+            case 'PMG':
+                $this->render('pmg_feedback_form');
+                break;
+            case 'KH':
+                $this->render('kh_feedback_form');
+                break;
             default:
                 $this->render('dac_feedback_form');
         }
@@ -272,6 +297,21 @@ class EnrollmentsController extends AppController {
                 break;
             case 'iZB':
                 $this->render('izb_sign_in_sheet');
+                break;
+            case 'AWA':
+                $this->render('awa_sign_in_sheet');
+                break;
+            case 'VTM':
+                $this->render('a1_sign_in_sheet');
+                break;
+            case 'DT':
+                $this->render('dt_sign_in_sheet');
+                break;
+            case 'PMG':
+                $this->render('pmg_sign_in_sheet');
+                break;
+            case 'KH':
+                $this->render('kh_sign_in_sheet');
                 break;
             default:
                 $this->render('dac_sign_in_sheet');
@@ -379,6 +419,21 @@ class EnrollmentsController extends AppController {
             case 'iZB':
                 $contents = $this->produce_iZenBridge_certificate($data);
                 break;
+            case 'AWA':
+                $contents = $this->produce_AWA_certificate($data);
+                break;
+            case 'VTM':
+                $contents = $this->produce_A1_certificate($data);
+                break;
+            case 'DT':
+                $contents = $this->produce_DT_certificate($data);
+                break;
+            case 'KH':
+                $contents = $this->produce_KH_certificate($data);
+                break;
+            case 'PMG':
+                $contents = $this->produce_PMG_certificate($data);
+                break;
             default:
                 $contents = $this->produce_DAC_certificate($data);
         }
@@ -478,7 +533,75 @@ class EnrollmentsController extends AppController {
         return $contents;
     }
 
+    private function produce_AWA_certificate($data){
+        $core = new FPDF('L', 'mm', 'Letter');
+        $core = $this->produce_common_certificate_parts($core, $data);
 
+        // logos
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::DAC_LOGO, 165,130,0,15);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::AWA_LOGO_PNG, 198,163,0,10);
+
+        $core = $this->produce_third_part_signatures($core, $data);
+
+        $contents = $core->Output('','S');
+        return $contents;
+    }
+
+    private function produce_A1_certificate($data){
+        $core = new FPDF('L', 'mm', 'Letter');
+        $core = $this->produce_common_certificate_parts($core, $data);
+
+        // logos
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::DAC_LOGO, 165,130,0,15);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::AGILE_TRAINING_LOGO_PNG, 185,160,0,20);
+
+        $core = $this->produce_third_part_signatures($core, $data);
+
+        $contents = $core->Output('','S');
+        return $contents;
+    }
+
+    private function produce_DT_certificate($data){
+        $core = new FPDF('L', 'mm', 'Letter');
+        $core = $this->produce_common_certificate_parts($core, $data);
+
+        // logos
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::DAC_LOGO, 165,130,0,15);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::DIGITAL_TANGO_LOGO_PNG, 198,163,0,15);
+
+        $core = $this->produce_third_part_signatures($core, $data);
+
+        $contents = $core->Output('','S');
+        return $contents;
+    }
+
+    private function produce_KH_certificate($data){
+        $core = new FPDF('L', 'mm', 'Letter');
+        $core = $this->produce_common_certificate_parts($core, $data);
+
+        // logos
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::DAC_LOGO, 165,130,0,15);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::KNOWLEDGE_HUT_LOGO_JPG, 185,163,0,10);
+
+        $core = $this->produce_third_part_signatures($core, $data);
+
+        $contents = $core->Output('','S');
+        return $contents;
+    }
+
+    private function produce_PMG_certificate($data){
+        $core = new FPDF('L', 'mm', 'Letter');
+        $core = $this->produce_common_certificate_parts($core, $data);
+
+        // logos
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::DAC_LOGO, 165,130,0,15);
+        $core->Image( $_SERVER['DOCUMENT_ROOT'].self::PMG_LOGO_PNG, 198,163,0,10);
+
+        $core = $this->produce_third_part_signatures($core, $data);
+
+        $contents = $core->Output('','S');
+        return $contents;
+    }
 
     private function produce_third_part_signatures($core, $data){
         // Ambler signature

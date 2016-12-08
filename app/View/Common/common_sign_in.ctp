@@ -5,6 +5,7 @@
  * Date: 2015-06-06
  * Time: 10:42 AM
  */
+//App::import('Vendor', 'Fpdf', array('file' => 'fpdf/fpdf.php'));
 App::import('Vendor', 'Fpdf', array('file' => 'fpdf/fpdf.php'));
 
 $courseOffering = $this->Session->read('course_offering');

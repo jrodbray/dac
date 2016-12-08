@@ -11,7 +11,7 @@ class EntitiesController extends AppController {
     public $components = array('Paginator');
 
     public $paginate = array(
-        'limit' => 5,
+        'limit' => 10,
         'order' => array(
             'name' => 'asc'
         )
